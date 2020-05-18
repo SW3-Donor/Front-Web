@@ -3,12 +3,18 @@ import { Link } from 'react-router-dom';
 
 class Login extends Component {
 
-  input_check = (id, pw) => {
-    if (id === ''){
+  input_check = (e, id, pw) => {
+    if (!id.trim()){
       alert('아이디를 입력하시오');
     }
-    else if (pw === ''){
+    else if (!pw.trim()){
       alert('비밀번호를 입력하시오');
+    }
+    else{
+      this.props.onLogin(e, {
+        email: id,
+        password: pw
+      })
     }
   }
 
@@ -20,10 +26,7 @@ class Login extends Component {
           <form method='post'
             onSubmit={(e) => {
               e.preventDefault();
-              this.input_check(
-                e.target.id.value,
-                e.target.pw.value
-              )
+              this.input_check(e, e.target.id.value, e.target.pw.value)
             }}
             >
             <div>
