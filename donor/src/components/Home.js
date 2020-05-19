@@ -10,6 +10,9 @@ class Home extends Component {
                     <Link to='login'>
                         <button name='login'>로그인</button>
                     </Link>
+                    <Link to='blood/register'>
+                        <button name='b_register'>헌혈증 등록</button>
+                    </Link>
                 </header>
         );
     }

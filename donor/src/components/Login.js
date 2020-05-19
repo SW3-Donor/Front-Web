@@ -23,12 +23,10 @@ class Login extends Component {
       <header>
         <h2>DONOR</h2>
         <div>
-          <form method='post'
-            onSubmit={(e) => {
+          <form onSubmit={(e) => {
               e.preventDefault();
               this.input_check(e, e.target.id.value, e.target.pw.value)
-            }}
-            >
+          }}>
             <div>
               <div>
                 <input type='text' name='id' className='ps_box' placeholder='아이디(이메일)'></input>
