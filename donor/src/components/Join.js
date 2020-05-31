@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 
 class Join extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      email: null,
-      name: null,
-      phone: null,
-      password: null
-    };
-  }
+  state = {
+    email: null,
+    name: null,
+    phone: null,
+    password: null
+  };
 
   input_check = (e, id, name, phone, pw1, pw2) => {
     if (!id.trim()){
@@ -33,14 +30,16 @@ class Join extends Component {
         name: name,
         phone: phone,
         password: pw1
-      }, () => (this.props.onSignup(e, this.state)));
+      }, this.props.onSignup(e, this.state));
     }
   }
 
   render(){
     return(
       <header>
-        <h2>회원가입</h2>
+        <div>
+          <h2>회원가입</h2>
+        </div>
         <form
           onSubmit={(e) => {
                 e.preventDefault();

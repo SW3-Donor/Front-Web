@@ -1,28 +1,27 @@
-import React, { Component, useState, useEffect } from 'react';
-import { Link, Route, Switch, BrowserRouter as Router } from 'react-router-dom';
-import Home from './components/Home'
-import Login from './components/Login'
-import Join from './components/Join'
-import Blood from './components/Blood'
-import './App.css';
+import React, { Component } from "react";
+import { Link, Route, Switch, BrowserRouter as Router, Redirect } from "react-router-dom";
+import Home from "./components/Home";
+import Login from "./components/Login";
+import Join from "./components/Join";
+import SecondPw from "./components/SecondPw";
+import Blood from "./components/Blood";
+import Topbar from "./components/Topbar";
+import MyInfo from "./components/MyInfo";
+import "./App.css";
 
 class App extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      showBackdrop: false,
-      showMobileNav: false,
-      isAuth: false,
-      token: null,
-      userId: null,
-      authLoading: false,
-      error: null,
-    };
-  }
+  state = {
+    isAuth: false,
+    token: null,
+    userId: null,
+    authLoading: false,
+    error: null,
+  };
 
   componentDidMount() {
     const token = localStorage.getItem("token");
     const expiryDate = localStorage.getItem("expiryDate");
+
     if (!token || !expiryDate) {
       return;
     }
@@ -30,16 +29,25 @@ class App extends Component {
       this.logoutHandler();
       return;
     }
-    const userId = localStorage.getItem("userId");
+
     const remainingMilliseconds =
       new Date(expiryDate).getTime() - new Date().getTime();
-    this.setState({ isAuth: true, token: token, userId: userId });
-    // this.setAutoLogout(remainingMilliseconds);
+    const userId = localStorage.getItem("userId");
+
+    this.setState({ userId: userId, token: token });
+    this.setAutoLogout(remainingMilliseconds);
   }
+
+  // 자동 로그아웃
+  setAutoLogout = (milliseconds) => {
+    setTimeout(() => {
+      this.logoutHandler();
+    }, milliseconds);
+  };
 
   // 로그아웃
   logoutHandler = () => {
-    this.setState({ isAuth: false, token: null });
+    this.setState({ isAuth: false, token: null, userId: null });
     localStorage.removeItem("token");
     localStorage.removeItem("expiryDate");
     localStorage.removeItem("userId");
@@ -47,10 +55,9 @@ class App extends Component {
 
   // 로그인
   loginHandler = (event, authData) => {
-    event.preventDefault();
-    
+    event.persist();
     this.setState({ authLoading: true });
-    fetch("http://172.19.1.157:8080/auth/login", {
+    fetch("http://172.19.1.65:8080/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -60,17 +67,10 @@ class App extends Component {
         password: authData.password,
       }),
     })
-      .then(res => {
-        if (res.status === 422) {
-          throw new Error("Validation failed.");
-        }
-        if (res.status !== 200 && res.status !== 201) {
-          console.log("Error!");
-          throw new Error("Could not authenticate you!");
-        }
+      .then((res) => {
         return res.json();
       })
-      .then(resData => {
+      .then((resData) => {
         console.log(resData);
         this.setState({
           isAuth: true,
@@ -80,15 +80,16 @@ class App extends Component {
         });
         localStorage.setItem("token", resData.token);
         localStorage.setItem("userId", resData.userId);
+        // 1시간 설정
         const remainingMilliseconds = 60 * 60 * 1000;
         const expiryDate = new Date(
-          new Date().getTime() + remainingMilliseconds,
+          new Date().getTime() + remainingMilliseconds
         );
         localStorage.setItem("expiryDate", expiryDate.toISOString());
-        // this.setAutoLogout(remainingMilliseconds);
+        this.setAutoLogout(remainingMilliseconds);
       })
-      .catch(err => {
-        console.log(err);
+      .catch((err) => {
+        console.log("실행되냐?", err);
         this.setState({
           isAuth: false,
           authLoading: false,
@@ -100,9 +101,8 @@ class App extends Component {
   // 회원가입
   signupHandler = (event, authData) => {
     event.persist();
-    
     this.setState({ authLoading: true });
-    fetch("http://172.19.1.157:8080/auth/register", {
+    fetch("http://172.19.1.65:8080/auth/register", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -111,70 +111,85 @@ class App extends Component {
         email: authData.email,
         name: authData.name,
         password: authData.password,
-        phone: authData.phone
+        phone: authData.phone,
       }),
     })
-      .then(res => {
-        if (res.status === 422) {
-          throw new Error(
-            "Validation failed. Make sure the email address isn't used yet!",
-          );
-        }
-        if (res.status !== 200 && res.status !== 201) {
-          console.log("Error!");
-          throw new Error("Creating a user failed!");
-        }
+      .then((res) => {
         return res.json();
       })
-      .then(resData => {
-        console.log(resData);
-        this.setState({ isAuth: false, authLoading: false });
+      .then((resData) => {
+        this.setState({
+          isAuth: false,
+          authLoading: false,
+          userId: resData.userId,
+        });
+        // localStorage.setItem("userId", resData.userId);
       })
-      .catch(err => {
-        console.log(err);
+      .catch((err) => {
+        console.log("실행되냐?", err);
         this.setState({
           isAuth: false,
           authLoading: false,
           error: err,
         });
       });
-  }
+  };
 
   // 헌혈증 등록
   bloodHandler = (event, blood) => {
     event.persist();
-    
     this.setState({ authLoading: true });
-    fetch("http://172.19.1.157:8080/blood/register", {
+    fetch("http://172.19.1.65:8080/blood/register", {
       method: "POST",
       headers: {
         Authorization: "Bearer " + this.state.token,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        number: blood.number
+        number: blood.number,
+        secondpassword: blood.password,
       }),
     })
-      .then(res => {
-        if (res.status === 422) {
-          throw new Error(
-            "Validation failed. Make sure the email address isn't used yet!",
-          );
-        }
-        if (res.status !== 200 && res.status !== 201) {
-          console.log('res',res);
-          
-          console.log("Error!");
-          throw new Error("Creating a user failed!");
-        }
-        
+      .then((res) => {
         return res.json();
       })
-      .then(resData => {
+      .then((resData) => {
         console.log(resData);
+        this.setState({ isAuth: false, authLoading: false });
       })
-      .catch(err => {
-        console.log(err);
+      .catch((err) => {
+        console.log("실행되냐?", err);
+        this.setState({
+          isAuth: false,
+          authLoading: false,
+          error: err,
+        });
+      });
+  };
+
+  // 2차 비밀번호 생성
+  pwHandler = (event, authData) => {
+    event.persist();
+    this.setState({ authLoading: true });
+    fetch("http://172.19.1.65:8080/auth/password", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        secondpassword: authData.password,
+        userId: this.state.userId,
+      }),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((resData) => {
+        console.log(resData);
+        this.setState({ isAuth: false, authLoading: false });
+      })
+      .catch((err) => {
+        console.log("실행되냐?", err);
         this.setState({
           isAuth: false,
           authLoading: false,
@@ -184,13 +199,37 @@ class App extends Component {
   };
 
   render() {
-
     return (
       <Router>
-        <Route exact path='/' component={Home} />
-        <Route exact path='/login' render={props => (<Login onLogin={this.loginHandler} />)} />
-        <Route exact path='/join' render={props => (<Join onSignup={this.signupHandler} />)} />
-        <Route exact path='/blood/register' render={props => (<Blood onBlood={this.bloodHandler} />)} />
+        <Topbar />
+
+        <Route exact path="/" component={Home} />
+
+        <Route exact path="/myInfo"
+          render={(props) => <MyInfo/> }
+        />
+
+        <Route exact path="/login">
+          {this.state.isAuth ? <Redirect to="/" />
+          : <Login onLogin={this.loginHandler} /> }
+        </Route>
+
+        <Route exact path="/join">
+          {this.state.userId ? <Redirect to="/join/password" />
+          : <Join onSignup={this.signupHandler} /> }
+        </Route>
+
+        <Route
+          exact
+          path="/join/password"
+          render={(props) => <SecondPw secondPassword={this.pwHandler} />}
+        />
+
+        <Route
+          exact
+          path="/blood/register"
+          render={(props) => <Blood onBlood={this.bloodHandler} />}
+        />
       </Router>
     );
   }

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 class Login extends Component {
-
   input_check = (e, id, pw) => {
     if (!id.trim()){
       alert('아이디를 입력하시오');
@@ -14,14 +13,14 @@ class Login extends Component {
       this.props.onLogin(e, {
         email: id,
         password: pw
-      })
+      });
     }
   }
 
   render(){
     return(
       <header>
-        <h2>DONOR</h2>
+          <h2>로그인</h2>
         <div>
           <form onSubmit={(e) => {
               e.preventDefault();
