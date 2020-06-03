@@ -7,6 +7,7 @@ import SecondPw from "./components/SecondPw";
 import Blood from "./components/Blood";
 import Topbar from "./components/Topbar";
 import MyInfo from "./components/MyInfo";
+import Board from "./components/Board";
 import "./App.css";
 
 class App extends Component {
@@ -16,8 +17,9 @@ class App extends Component {
     userId: null,
     authLoading: false,
     error: null,
+    url: "http://172.19.1.189:8080",
   };
-
+  
   componentDidMount() {
     const token = localStorage.getItem("token");
     const expiryDate = localStorage.getItem("expiryDate");
@@ -57,7 +59,7 @@ class App extends Component {
   loginHandler = (event, authData) => {
     event.persist();
     this.setState({ authLoading: true });
-    fetch("http://172.19.1.65:8080/auth/login", {
+    fetch(`${this.state.url}/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -102,7 +104,7 @@ class App extends Component {
   signupHandler = (event, authData) => {
     event.persist();
     this.setState({ authLoading: true });
-    fetch("http://172.19.1.65:8080/auth/register", {
+    fetch(`${this.state.url}/auth/register`, {
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -139,7 +141,7 @@ class App extends Component {
   bloodHandler = (event, blood) => {
     event.persist();
     this.setState({ authLoading: true });
-    fetch("http://172.19.1.65:8080/blood/register", {
+    fetch(`${this.state.url}/blood/register`, {
       method: "POST",
       headers: {
         Authorization: "Bearer " + this.state.token,
@@ -171,7 +173,7 @@ class App extends Component {
   pwHandler = (event, authData) => {
     event.persist();
     this.setState({ authLoading: true });
-    fetch("http://172.19.1.65:8080/auth/password", {
+    fetch(`${this.state.url}/auth/password`, {
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -200,37 +202,38 @@ class App extends Component {
 
   render() {
     return (
-      <Router>
-        <Topbar />
+      <div className="header">
+        <Router>
+          <Topbar />
 
-        <Route exact path="/" component={Home} />
+          <Route exact path="/" component={Home} />
 
-        <Route exact path="/myInfo"
-          render={(props) => <MyInfo/> }
-        />
+          <Route exact path="/myInfo"
+            render={(props) => <MyInfo /> }
+          />
 
-        <Route exact path="/login">
-          {this.state.isAuth ? <Redirect to="/" />
-          : <Login onLogin={this.loginHandler} /> }
-        </Route>
+          <Route exact path="/login">
+            {this.state.isAuth ? <Redirect to="/" />
+            : <Login onLogin={this.loginHandler} /> }
+          </Route>
 
-        <Route exact path="/join">
-          {this.state.userId ? <Redirect to="/join/password" />
-          : <Join onSignup={this.signupHandler} /> }
-        </Route>
+          <Route exact path="/join">
+            <Join onSignup={this.signupHandler} />
+          </Route>
 
-        <Route
-          exact
-          path="/join/password"
-          render={(props) => <SecondPw secondPassword={this.pwHandler} />}
-        />
+          <Route exact path="/join/password"
+            render={(props) => <SecondPw secondPassword={this.pwHandler} />}
+          />
 
-        <Route
-          exact
-          path="/blood/register"
-          render={(props) => <Blood onBlood={this.bloodHandler} />}
-        />
-      </Router>
+          <Route exact path="/blood/register"
+            render={(props) => <Blood onBlood={this.bloodHandler} />}
+          />
+
+          <Route exact path="/board"
+            render={(props) => <Board />}
+          />
+        </Router>
+      </div>
     );
   }
 }

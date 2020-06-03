@@ -2,30 +2,29 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 class Login extends Component {
-  input_check = (e, id, pw) => {
-    if (!id.trim()){
+
+  input_check = (e) => {
+    e.preventDefault();
+    if (!e.target.id.value.trim()){
       alert('아이디를 입력하시오');
     }
-    else if (!pw.trim()){
+    else if (!e.target.pw.value.trim()){
       alert('비밀번호를 입력하시오');
     }
     else{
       this.props.onLogin(e, {
-        email: id,
-        password: pw
+        email: e.target.id.value,
+        password: e.target.pw.value
       });
     }
   }
 
   render(){
     return(
-      <header>
+      <div>
           <h2>로그인</h2>
         <div>
-          <form onSubmit={(e) => {
-              e.preventDefault();
-              this.input_check(e, e.target.id.value, e.target.pw.value)
-          }}>
+          <form onSubmit={this.input_check}>
             <div>
               <div>
                 <input type='text' name='id' className='ps_box' placeholder='아이디(이메일)'></input>
@@ -44,7 +43,7 @@ class Login extends Component {
             </Link>
           </div>
         </div>
-      </header>
+      </div>
     );
   }
 }

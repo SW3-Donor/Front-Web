@@ -1,4 +1,4 @@
-header {
+.header {
   margin: 0 auto;
   width: 1000px;
 }
@@ -12,11 +12,11 @@ header {
 
 .group-title {
   margin-right: auto;
-  width: 200px;
+  width: 300px;
 }
 
 .group-nav {
-  width: 500px;
+  width: 600px;
   float: right!important;
   display: flex;
 }

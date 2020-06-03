@@ -6,15 +6,16 @@ class Topbar extends Component {
     return(
       <div>
         <div className="group">
-          <Link to='/'>
             <div className="group group-title">
               <h1>DONOR</h1>
             </div>
-          </Link>
           <div className="group group-nav">
             <ul>
               <li>
                 <a href="/">Home</a>
+              </li>
+              <li>
+                <a href="/board">게시판</a>
               </li>
               <li>
                 <a href="/blood/register">헌혈증 등록</a>

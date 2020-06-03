@@ -1,37 +1,26 @@
 import React, { Component } from 'react';
 
 class SecondPw extends Component {
-  state = {
-      password: null
-    };
 
-  input_check = (e, pw1, pw2) => {
-    if (!pw1.trim()){
+  input_check = (e) => {
+    e.preventDefault();
+    if (!e.target.pw1.value.trim()){
       alert('비밀번호를 입력하시오');
     }
-    else if (!pw2.trim()){
+    else if (!e.target.pw2.value.trim()){
       alert('비밀번호가 일치하지 않습니다');
     }
     else {
-      this.setState({
-        password: pw1
-      }, this.props.secondPassword(e, this.state));
+      this.props.secondPassword(e, { password: e.target.pw1.value });
     }
   }
 
   render(){
     return(
-      <header>
+      <div>
         <h2>2차 비밀번호</h2>
         <form
-          onSubmit={(e) => {
-                e.preventDefault();
-                this.input_check(
-                  e,
-                  e.target.pw1.value,
-                  e.target.pw2.value
-                )
-          }}>
+          onSubmit={this.input_check}>
           <div>
             <div>
               <input type='password' name='pw1' className='ps_box' placeholder='2차 비밀번호'></input>
@@ -44,7 +33,7 @@ class SecondPw extends Component {
             </div>
           </div>
         </form>
-      </header>
+      </div>
     );
   }
 }

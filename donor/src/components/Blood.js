@@ -2,25 +2,26 @@ import React, { Component } from 'react';
 
 class Blood extends Component {
   input_check = (e, blood, pw) => {
-    if (!blood.trim()){
-      alert('아이디를 입력하시오');
+    e.preventDefault();
+    if (!e.target.blood_register.value.trim()){
+      alert('헌혈증 번호를 입력하시오');
     }
+    // else if(!e.target.pw2.value.trim()){
+    //   alert('2차비밀번호를 입력하시오')
+    // }
     else{
       this.props.onBlood(e, {
-        number: blood,
-        password: pw
-      })
+        number: e.target.blood_register.value,
+        password: e.target.pw2.value
+      });
     }
   }
 
   render() {
     return(
-      <header>
+      <div>
         <div>
-          <form onSubmit={(e) => {
-            e.preventDefault();
-            this.input_check(e, e.target.blood_register.value, e.target.pw2.value)
-          }}>
+          <form onSubmit={this.input_check}>
             <div>
               <input type='text' name='blood_register' className='ps_box' placeholder='헌혈증 번호'></input>
             </div>
@@ -32,7 +33,7 @@ class Blood extends Component {
             </div>
           </form>
         </div>
-      </header>
+      </div>
     );
   }
 }
