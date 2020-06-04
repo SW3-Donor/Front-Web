@@ -27,7 +27,7 @@ class Login extends Component {
           <form onSubmit={this.input_check}>
             <div>
               <div>
-                <input type='text' name='id' className='ps_box' placeholder='아이디(이메일)'></input>
+                <input type='email' name='id' className='ps_box' placeholder='아이디(이메일)'></input>
               </div>
               <div>
                 <input type='password' name='pw' className='ps_box' placeholder='비밀번호'></input>

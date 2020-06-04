@@ -8,6 +8,7 @@ import Blood from "./components/Blood";
 import Topbar from "./components/Topbar";
 import MyInfo from "./components/MyInfo";
 import Board from "./components/Board";
+import Trade from "./components/Trade";
 import "./App.css";
 
 class App extends Component {
@@ -17,7 +18,7 @@ class App extends Component {
     userId: null,
     authLoading: false,
     error: null,
-    url: "http://172.19.1.189:8080",
+    url: "http://192.168.0.28:8080",
   };
   
   componentDidMount() {
@@ -120,6 +121,7 @@ class App extends Component {
         return res.json();
       })
       .then((resData) => {
+        console.log("resData",resData);
         this.setState({
           isAuth: false,
           authLoading: false,
@@ -200,6 +202,38 @@ class App extends Component {
       });
   };
 
+  // 헌혈증 보내기
+  tradeHandler = (event, authData) => {
+    event.persist();
+    this.setState({ authLoading: true });
+    fetch(`${this.state.url}/blood/send`, {
+      method: "post",
+      headers: {
+        Authorization: "Bearer " + this.state.token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        secondpassword: authData.password,
+        receiver: authData.receiver,
+        count: authData.count
+      }),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((resData) => {
+        console.log('resData다',resData);
+        this.setState({ authLoading: false });
+      })
+      .catch((err) => {
+        console.log("실행되냐?", err);
+        this.setState({
+          error: err,
+        });
+        console.log("에러다",this.error);
+      });
+  };
+
   render() {
     return (
       <div className="header">
@@ -218,12 +252,9 @@ class App extends Component {
           </Route>
 
           <Route exact path="/join">
-            <Join onSignup={this.signupHandler} />
+            {this.state.userId ? <SecondPw secondPassword={this.pwHandler} />
+            : <Join onSignup={this.signupHandler} /> }
           </Route>
-
-          <Route exact path="/join/password"
-            render={(props) => <SecondPw secondPassword={this.pwHandler} />}
-          />
 
           <Route exact path="/blood/register"
             render={(props) => <Blood onBlood={this.bloodHandler} />}
@@ -231,6 +262,10 @@ class App extends Component {
 
           <Route exact path="/board"
             render={(props) => <Board />}
+          />
+
+          <Route exact path="/blood/trade"
+            render={(props) => <Trade tradeBlood={this.tradeHandler}/>}
           />
         </Router>
       </div>

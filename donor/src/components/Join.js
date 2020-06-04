@@ -40,13 +40,13 @@ class Join extends Component {
          >
           <div>
             <div>
-            <input type='text' name='id' className='ps_box' placeholder='아이디(이메일)'></input>
+            <input type='email' name='id' className='ps_box' placeholder='아이디(이메일)'></input>
             </div>
             <div>
             <input type='text' name='name' className='ps_box' placeholder='이름'></input>
             </div>
             <div>
-              <input type='text' name='phone' className='ps_box' placeholder='전화번호'></input>
+              <input type='tel' name='phone' className='ps_box' placeholder='전화번호'></input>
             </div>
             <div>
               <input type='password' name='pw1' className='ps_box' placeholder='비밀번호'></input>

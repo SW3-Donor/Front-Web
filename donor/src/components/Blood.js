@@ -6,9 +6,9 @@ class Blood extends Component {
     if (!e.target.blood_register.value.trim()){
       alert('헌혈증 번호를 입력하시오');
     }
-    // else if(!e.target.pw2.value.trim()){
-    //   alert('2차비밀번호를 입력하시오')
-    // }
+    else if(!e.target.pw2.value.trim()){
+      alert('2차비밀번호를 입력하시오')
+    }
     else{
       this.props.onBlood(e, {
         number: e.target.blood_register.value,
@@ -23,7 +23,7 @@ class Blood extends Component {
         <div>
           <form onSubmit={this.input_check}>
             <div>
-              <input type='text' name='blood_register' className='ps_box' placeholder='헌혈증 번호'></input>
+              <input type='number' name='blood_register' className='ps_box' placeholder='헌혈증 번호'></input>
             </div>
             <div>
               <input type='password' name='pw2' className='ps_box' placeholder='2차비번'></input>

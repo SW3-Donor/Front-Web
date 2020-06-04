@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 
 class Topbar extends Component {
   render() {
@@ -13,6 +12,9 @@ class Topbar extends Component {
             <ul>
               <li>
                 <a href="/">Home</a>
+              </li>
+              <li>
+                <a href="/blood/trade">헌혈증 보내기</a>
               </li>
               <li>
                 <a href="/board">게시판</a>
