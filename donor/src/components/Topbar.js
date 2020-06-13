@@ -5,9 +5,9 @@ class Topbar extends Component {
     return(
       <div>
         <div className="group">
-            <div className="group group-title">
-              <h1>DONOR</h1>
-            </div>
+          <div className="group group-title">
+            <h1>DONOR</h1>
+          </div>
           <div className="group group-nav">
             <ul>
               <li>
@@ -26,7 +26,8 @@ class Topbar extends Component {
                 <a href="/myinfo">마이페이지</a>
               </li>
               <li>
-                <a href="/login">로그인</a>
+                {this.props.token ? <a href="/logout" onClick={this.props.onLogout}>로그아웃</a>
+                : <a href="/login">로그인</a>}
               </li>
             </ul>
           </div>

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, Route, Switch, BrowserRouter as Router, Redirect } from "react-router-dom";
+import { Route, BrowserRouter as Router, Redirect } from "react-router-dom";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Join from "./components/Join";
@@ -12,14 +12,17 @@ import Trade from "./components/Trade";
 import "./App.css";
 
 class App extends Component {
-  state = {
-    isAuth: false,
-    token: null,
-    userId: null,
-    authLoading: false,
-    error: null,
-    url: "http://192.168.0.28:8080",
-  };
+  constructor(){
+    super();
+    this.state = {
+      isAuth: false,
+      token: null,
+      userId: null,
+      authLoading: false,
+      error: null,
+      url: "http://localhost:8080",
+    };
+  }
   
   componentDidMount() {
     const token = localStorage.getItem("token");
@@ -35,10 +38,13 @@ class App extends Component {
 
     const remainingMilliseconds =
       new Date(expiryDate).getTime() - new Date().getTime();
-    const userId = localStorage.getItem("userId");
 
-    this.setState({ userId: userId, token: token });
+    this.setState({ token: token });
     this.setAutoLogout(remainingMilliseconds);
+  }
+
+  componentDidUpdate(){
+    console.log('componentDidUpdate')
   }
 
   // 자동 로그아웃
@@ -50,10 +56,9 @@ class App extends Component {
 
   // 로그아웃
   logoutHandler = () => {
-    this.setState({ isAuth: false, token: null, userId: null });
     localStorage.removeItem("token");
     localStorage.removeItem("expiryDate");
-    localStorage.removeItem("userId");
+    this.setState({ token: null })
   };
 
   // 로그인
@@ -71,6 +76,14 @@ class App extends Component {
       }),
     })
       .then((res) => {
+        if (res.status === 500){
+          alert("등록된 회원정보가 없습니다.")
+          throw new Error("등록된 회원정보가 없습니다.")
+        }
+        else if (res.status === 401){
+          alert("이메일 또는 비밀번호가 일치하지 않습니다.")
+          throw new Error("이메일 또는 비밀번호가 일치하지 않습니다.")
+        }
         return res.json();
       })
       .then((resData) => {
@@ -79,10 +92,8 @@ class App extends Component {
           isAuth: true,
           token: resData.token,
           authLoading: false,
-          userId: resData.userId,
         });
         localStorage.setItem("token", resData.token);
-        localStorage.setItem("userId", resData.userId);
         // 1시간 설정
         const remainingMilliseconds = 60 * 60 * 1000;
         const expiryDate = new Date(
@@ -127,7 +138,6 @@ class App extends Component {
           authLoading: false,
           userId: resData.userId,
         });
-        // localStorage.setItem("userId", resData.userId);
       })
       .catch((err) => {
         console.log("실행되냐?", err);
@@ -222,7 +232,6 @@ class App extends Component {
         return res.json();
       })
       .then((resData) => {
-        console.log('resData다',resData);
         this.setState({ authLoading: false });
       })
       .catch((err) => {
@@ -238,7 +247,7 @@ class App extends Component {
     return (
       <div className="header">
         <Router>
-          <Topbar />
+          <Topbar token={this.state.token} onLogout={this.logoutHandler}/>
 
           <Route exact path="/" component={Home} />
 
