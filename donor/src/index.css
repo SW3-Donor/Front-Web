@@ -16,7 +16,7 @@
 }
 
 .group-nav {
-  width: 600px;
+  width: 700px;
   float: right!important;
   display: flex;
 }
@@ -88,4 +88,112 @@ img {
   margin: 0 auto;
   width: 100%; 
   height: 100%;
+}
+
+/* myinfo css */
+#container {
+  position: relative;
+  z-index: 20;
+  max-width: 954px;
+  margin: 0 auto;
+}
+
+#content {
+  position: relative;
+  line-height: 14px;
+  zoom: 1;
+  padding: 16px 12px 94px;
+}
+
+.column {
+  float: left;;
+  width: 50%;
+}
+
+.sh_group {
+  min-height: 185px;
+  margin: 16px 8px 0;
+  padding: 32px 29px 30px;
+  text-align: left;
+  border: 1px solid #dadada;
+  border-radius: 2px;
+  background: #fff;
+}
+
+.sh_header {
+  position: relative;
+}
+
+.sh_lst {
+  position: relative;
+  min-height: 80px;
+  margin-top: -1px;
+  padding-bottom: 8px;
+}
+
+dl {
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+
+ .blind, legend {
+  position: absolute;
+  clip: rect(0 0 0 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+}
+
+.sh_lst dt {
+  font-size: 12px;
+  font-weight: 700;
+  float: left;
+  color: #333;
+}
+
+dt {
+  display: block;
+}
+
+
+.sh_lst .pic_desc {
+  position: absolute;
+  top: 3px;
+  left: 0;
+  width: 80px;
+}
+
+.sh_lst dd {
+  overflow: hidden;
+  word-wrap: break-word;
+  word-break: keep-all;
+}
+
+.sh_lst .intro_desc {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 21px;
+  padding: 15px 0 0 40%;
+  color: #666;
+}
+
+.sh_lst .nic_tit {
+  margin: 12px 8px 0 40%;
+}
+
+.sh_lst .nic_desc {
+  font-size: 14px;
+  line-height: 21px;
+  margin-top: 8px;
+  letter-spacing: -1px;
+  color: #666;
+}
+
+.sh_lst2 {
+  overflow: hidden;
+  padding-top: 3px;
 }
