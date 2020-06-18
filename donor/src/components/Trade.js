@@ -3,7 +3,10 @@ import React, { Component } from "react";
 class Trade extends Component {
   input_check = (e) => {
     e.preventDefault();
-    if (!e.target.re_email.value.trim()){
+    if (!this.props.token){
+      alert('로그인을 먼저하십시오.')
+    }
+    else if (!e.target.re_email.value.trim()){
       alert('받는 사람의 이메일을 입력하시오');
     }
     else if (!e.target.blood_count.value.trim()){

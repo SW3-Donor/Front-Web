@@ -96,6 +96,7 @@ img {
   z-index: 20;
   max-width: 954px;
   margin: 0 auto;
+  margin-top: 50px;
 }
 
 #content {
@@ -106,7 +107,7 @@ img {
 }
 
 .column {
-  float: left;;
+  float: left;
   width: 50%;
 }
 
@@ -116,7 +117,7 @@ img {
   padding: 32px 29px 30px;
   text-align: left;
   border: 1px solid #dadada;
-  border-radius: 2px;
+  border-radius: 15px;
   background: #fff;
 }
 
@@ -135,11 +136,11 @@ dl {
   display: block;
   margin-block-start: 1em;
   margin-block-end: 1em;
-  margin-inline-start: 0px;
+  margin-inline-start: 20px;
   margin-inline-end: 0px;
 }
 
- .blind, legend {
+.blind {
   position: absolute;
   clip: rect(0 0 0 0);
   width: 1px;
@@ -149,7 +150,7 @@ dl {
 }
 
 .sh_lst dt {
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 700;
   float: left;
   color: #333;
@@ -159,18 +160,11 @@ dt {
   display: block;
 }
 
-
 .sh_lst .pic_desc {
   position: absolute;
   top: 3px;
-  left: 0;
+  left: 100;
   width: 80px;
-}
-
-.sh_lst dd {
-  overflow: hidden;
-  word-wrap: break-word;
-  word-break: keep-all;
 }
 
 .sh_lst .intro_desc {
@@ -186,7 +180,7 @@ dt {
 }
 
 .sh_lst .nic_desc {
-  font-size: 14px;
+  font-size: 15px;
   line-height: 21px;
   margin-top: 8px;
   letter-spacing: -1px;
@@ -196,4 +190,20 @@ dt {
 .sh_lst2 {
   overflow: hidden;
   padding-top: 3px;
+}
+
+.sh_lst2 dt {
+  font-size: 15px;
+  font-weight: 700;
+  color: #333;
+}
+
+.sh_lst2 dd {
+  margin-top: 7px;
+  margin-bottom: 1em;
+  font-size: 15px;
+  line-height: 21px;
+  margin-top: 8px;
+  letter-spacing: -1px;
+  color: #666;
 }

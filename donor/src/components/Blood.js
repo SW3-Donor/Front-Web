@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 
 class Blood extends Component {
-  input_check = (e, blood, pw) => {
+  input_check = (e) => {
     e.preventDefault();
-    if (!e.target.blood_register.value.trim()){
+    if (!this.props.token) {
+      alert('로그인을 먼저 하십시오.')
+    }
+    else if (!e.target.blood_register.value.trim()){
       alert('헌혈증 번호를 입력하시오');
     }
     else if(!e.target.pw2.value.trim()){

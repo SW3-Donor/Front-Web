@@ -23,7 +23,7 @@ class App extends Component {
       url: "http://localhost:8080",
     };
   }
-  
+
   componentDidMount() {
     const token = localStorage.getItem("token");
     const expiryDate = localStorage.getItem("expiryDate");
@@ -58,6 +58,7 @@ class App extends Component {
   logoutHandler = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("expiryDate");
+    alert('로그아웃 되었습니다.')
     this.setState({ token: null })
   };
 
@@ -88,6 +89,7 @@ class App extends Component {
       })
       .then((resData) => {
         console.log(resData);
+        alert(resData.message);
         this.setState({
           isAuth: true,
           token: resData.token,
@@ -103,7 +105,7 @@ class App extends Component {
         this.setAutoLogout(remainingMilliseconds);
       })
       .catch((err) => {
-        console.log("실행되냐?", err);
+        console.log("error", err);
         this.setState({
           isAuth: false,
           authLoading: false,
@@ -133,6 +135,7 @@ class App extends Component {
       })
       .then((resData) => {
         console.log("resData",resData);
+        alert(resData.message);
         this.setState({
           isAuth: false,
           authLoading: false,
@@ -140,7 +143,7 @@ class App extends Component {
         });
       })
       .catch((err) => {
-        console.log("실행되냐?", err);
+        console.log("error", err);
         this.setState({
           isAuth: false,
           authLoading: false,
@@ -169,10 +172,12 @@ class App extends Component {
       })
       .then((resData) => {
         console.log(resData);
+        alert(resData.message);
         this.setState({ isAuth: false, authLoading: false });
+        window.location.reload();
       })
       .catch((err) => {
-        console.log("실행되냐?", err);
+        console.log("error", err);
         this.setState({
           isAuth: false,
           authLoading: false,
@@ -184,15 +189,16 @@ class App extends Component {
   // 2차 비밀번호 생성
   pwHandler = (event, authData) => {
     event.persist();
+    console.log('2차비번',authData.password)
     this.setState({ authLoading: true });
     fetch(`${this.state.url}/auth/password`, {
       method: "post",
       headers: {
+        Authorization: "Bearer " + this.state.token,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         secondpassword: authData.password,
-        userId: this.state.userId,
       }),
     })
       .then((res) => {
@@ -200,10 +206,11 @@ class App extends Component {
       })
       .then((resData) => {
         console.log(resData);
+        alert(resData.message);
         this.setState({ isAuth: false, authLoading: false });
       })
       .catch((err) => {
-        console.log("실행되냐?", err);
+        console.log("error", err);
         this.setState({
           isAuth: false,
           authLoading: false,
@@ -232,15 +239,30 @@ class App extends Component {
         return res.json();
       })
       .then((resData) => {
+        alert(`${resData.log[0].receiver}에게 보냈습니다.`);
         this.setState({ authLoading: false });
+        window.location.reload();
       })
       .catch((err) => {
-        console.log("실행되냐?", err);
+        console.log("error", err);
         this.setState({
           error: err,
         });
         console.log("에러다",this.error);
       });
+  };
+
+  // 이메일, 이름, 전화번호, 헌혈증 개수
+  // 유저 정보
+  myinfoHandler = () => {
+    return fetch(`${this.state.url}/profile/user`, {
+      method: "post",
+      headers: {
+        Authorization: "Bearer " + this.state.token,
+        "Content-Type": "application/json",
+      }
+    })
+      .then(res => res.json())
   };
 
   render() {
@@ -251,30 +273,31 @@ class App extends Component {
 
           <Route exact path="/" component={Home} />
 
-          <Route exact path="/myInfo"
-            render={(props) => <MyInfo /> }
-          />
+          <Route exact path="/myInfo">
+            {this.state.token ? <MyInfo data={{token: this.state.token, url:this.state.url}}/>
+            : <Redirect to="/login" /> }
+          </Route>
 
           <Route exact path="/login">
-            {this.state.isAuth ? <Redirect to="/" />
+            {this.state.token ? <Redirect to="/" />
             : <Login onLogin={this.loginHandler} /> }
           </Route>
 
           <Route exact path="/join">
-            {this.state.userId ? <SecondPw secondPassword={this.pwHandler} />
+            {this.state.token ? <SecondPw secondPassword={this.pwHandler} />
             : <Join onSignup={this.signupHandler} /> }
           </Route>
 
           <Route exact path="/blood/register"
-            render={(props) => <Blood onBlood={this.bloodHandler} />}
+            render={() => <Blood onBlood={this.bloodHandler} token={this.state.token}/>}
           />
 
           <Route exact path="/board"
-            render={(props) => <Board />}
+            render={() => <Board />}
           />
 
           <Route exact path="/blood/trade"
-            render={(props) => <Trade tradeBlood={this.tradeHandler}/>}
+            render={() => <Trade tradeBlood={this.tradeHandler} token={this.state.token}/>}
           />
         </Router>
       </div>

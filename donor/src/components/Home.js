@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import blood_img from '../img/blood.png'
 
 class Home extends Component {

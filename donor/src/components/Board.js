@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import BoardItem from './BoardItem';
+import BoardList from './BoardList';
 
 class Board extends Component {
   render() {
@@ -22,7 +22,7 @@ class Board extends Component {
               <td width="100">작성자</td>
               <td width="100">작성일</td>
             </tr>
-            <BoardItem />
+            <BoardList />
           </tbody>
         </table>
         <br></br>

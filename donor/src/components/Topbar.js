@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class Topbar extends Component {
   render() {
@@ -11,19 +12,20 @@ class Topbar extends Component {
           <div className="group group-nav">
             <ul>
               <li>
+                {/* <Link to="/">Home</Link> */}
                 <a href="/">Home</a>
               </li>
               <li>
-                <a href="/blood/trade">헌혈증 보내기</a>
+                <Link to="/blood/trade">헌혈증 보내기</Link>
               </li>
               <li>
-                <a href="/board">게시판</a>
+                <Link to="/board">게시판</Link>
               </li>
               <li>
-                <a href="/blood/register">헌혈증 등록</a>
+                <Link to="/blood/register">헌혈증 등록</Link>
               </li>
               <li>
-                <a href="/myinfo">마이페이지</a>
+                <Link to="/myinfo">마이페이지</Link>
               </li>
               <li>
                 {this.props.token ? <a href="/logout" onClick={this.props.onLogout}>로그아웃</a>
