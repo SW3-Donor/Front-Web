@@ -10,6 +10,7 @@ import MyInfo from "./components/MyInfo";
 import Board from "./components/Board";
 import Trade from "./components/Trade";
 import "./App.css";
+import BoardWrite from "./components/BoardPages/BoardWrite";
 
 class App extends Component {
   constructor(){
@@ -20,7 +21,8 @@ class App extends Component {
       userId: null,
       authLoading: false,
       error: null,
-      url: "http://localhost:8080",
+      url: "http://localhost:5000",
+      success: false,
     };
   }
 
@@ -32,15 +34,14 @@ class App extends Component {
       return;
     }
     if (new Date(expiryDate) <= new Date()) {
-      this.logoutHandler();
+    this.logoutHandler();
       return;
     }
 
     const remainingMilliseconds =
       new Date(expiryDate).getTime() - new Date().getTime();
-
-    this.setState({ token: token });
     this.setAutoLogout(remainingMilliseconds);
+    this.setState({ token: token });
   }
 
   componentDidUpdate(){
@@ -252,20 +253,32 @@ class App extends Component {
       });
   };
 
-  // 이메일, 이름, 전화번호, 헌혈증 개수
-  // 유저 정보
-  myinfoHandler = () => {
-    return fetch(`${this.state.url}/profile/user`, {
+  // 게시글 등록
+  onBoardWrite = (event, data) => {
+    event.persist();
+    fetch(`${this.state.url}/board/post`, {
       method: "post",
       headers: {
         Authorization: "Bearer " + this.state.token,
         "Content-Type": "application/json",
-      }
+      },
+      body: JSON.stringify({
+        title: data.title,
+        content: data.content,
+        count: data.count
+      }),
     })
       .then(res => res.json())
+      .then(resData => {
+        console.log(resData)
+        this.setState({ success: true });
+        window.location.reload();
+
+      })
   };
 
   render() {
+    
     return (
       <div className="header">
         <Router>
@@ -288,12 +301,26 @@ class App extends Component {
             : <Join onSignup={this.signupHandler} /> }
           </Route>
 
-          <Route exact path="/blood/register"
-            render={() => <Blood onBlood={this.bloodHandler} token={this.state.token}/>}
+          <Route exact path="/board"
+            render={() => <Board data={{token: this.state.token, url:this.state.url}}/>}
           />
 
-          <Route exact path="/board"
-            render={() => <Board />}
+          <Route exact path="/board/write"
+            render={() => {
+              if(this.state.success){
+                return <Redirect to="/board" />
+              }
+              else if(this.state.token){
+                return <BoardWrite onBoardWrite={this.onBoardWrite} token={this.state.token}/>
+              }
+              else {
+                return <Redirect to="/login" />
+              }
+            }}
+          />
+
+          <Route exact path="/blood/register"
+            render={() => <Blood onBlood={this.bloodHandler} token={this.state.token}/>}
           />
 
           <Route exact path="/blood/trade"

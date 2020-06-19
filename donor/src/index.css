@@ -42,7 +42,7 @@ li {
   cursor: pointer;
 }
 
-a {
+.group a {
   text-decoration: none;
   color: white;
 }
@@ -174,12 +174,11 @@ dt {
   padding: 15px 0 0 40%;
   color: #666;
 }
-
-.sh_lst .nic_tit {
-  margin: 12px 8px 0 40%;
+                
+.nic_tit {
 }
 
-.sh_lst .nic_desc {
+.nic_desc {
   font-size: 15px;
   line-height: 21px;
   margin-top: 8px;
@@ -206,4 +205,11 @@ dt {
   margin-top: 8px;
   letter-spacing: -1px;
   color: #666;
+}
+
+
+/* Board css */
+a {
+  text-decoration: none;
+  color: black;
 }

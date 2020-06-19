@@ -1,22 +1,25 @@
 import React, { Component } from 'react';
+import BloodList from './myinfoPages/BloodList';
+import SendList from './myinfoPages/SendList';
+import ReceiveList from './myinfoPages/ReceiveList';
 
 class MyInfo extends Component {
   constructor(){
     super()
     this.state = {
-      count: null,
+      count: 0,
       email: null,
-      myblood: null,
+      myblood: [],
       name: null,
       phone: null,
-      receivetrade: null,
-      sendtrade: null
+      receivetrade: [],
+      sendtrade: []
     }
   }
   componentDidMount(){
-    console.log('myinfo컴포넌트')
     this.myinfoHandler(this.props.data)
     .then(resData => {
+      console.log(resData)
       this.setState({
         count: resData.count,
         email: resData.email,
@@ -24,13 +27,12 @@ class MyInfo extends Component {
         name: resData.name,
         phone: resData.phone,
         receivetrade: resData.receivetrade,
-        sendtrade: resData.receivetrade
+        sendtrade: resData.sendtrade
       })
     })
   }
 
-  // 이메일, 이름, 전화번호, 헌혈증 개수
-  // 유저 정보
+  // 유저 정보 api
   myinfoHandler = (data) => {
     return fetch(`${data.url}/profile/user`, {
       method: "post",
@@ -42,6 +44,39 @@ class MyInfo extends Component {
       .then(res => res.json())
   };
 
+  getBlood = (items) => {
+    const bloodlist = items.map((item, index) => (
+      <BloodList
+        date = {item.updatedAt}
+        number = {item.validnumber}
+        key = {index + 1}
+      />
+    ))
+    return bloodlist;
+  }
+
+  getSendList = (items) => {
+    const sendlist = items.map((item, index) => {
+      return <SendList
+        receiver = {item.receiver}
+        date = {item.createdAt}
+        key = {index + 1}
+      />
+    })
+    return sendlist;
+  }
+
+  getReceiveList = (items) => {
+    const sendlist = items.map((item, index) => {
+      return <ReceiveList
+        sender = {item.sender}
+        date = {item.createdAt}
+        key = {index + 1}
+      />
+    })
+    return sendlist;
+  }
+
   render() {
     return(
       <div>
@@ -51,52 +86,43 @@ class MyInfo extends Component {
               <div className="sh_group">
                 <div className="sh_header">
                   <h3>개인정보</h3>
-                  <div></div>
-                </div>
-                <div className="sh_content">
-                  <dl className="sh_lst">
-                    <dt className="blind">프로필사진</dt>
-                    <dd className="pic_desc">프로필사진</dd>
-                    <dt className="blind">&nbsp;</dt>
-                    <dd className="intro_desc">&nbsp;</dd>
-                    <dt className="nic_tit">이름</dt>
-                    <dd className="nic_desc">{this.state.name}</dd>
-                  </dl>
-                </div>
-                <p className="btn_area_btm"></p>
-              </div>
-              <div className="sh_group">
-                <div className="sh_header">
-                  <h3>헌혈증</h3>
                 </div>
                 <div className="sh_content">
                   <dl className="sh_lst2">
+                    <dt>이름</dt>
+                    <dd>{this.state.name}</dd>
                     <dt>이메일</dt>
-                    <dd>qwer1234@naver.com</dd>
+                    <dd>{this.state.email}</dd>
                     <dt>전화번호</dt>
                     <dd>{this.state.phone}</dd>
                   </dl>
                 </div>
-                <p className="btn_area_btm"></p>
+              </div>
+              <div className="sh_group">
+                <div className="sh_header">
+                  <h3>거래기록(받기)</h3>
+                </div>
+                <div className="sh_content">
+                  {this.getReceiveList(this.state.receivetrade)}
+                </div>
               </div>
             </div>
             <div className="column">
               <div className="sh_group">
                 <div className="sh_header">
-                  <h3>연락처</h3>
+                  <h3>헌혈증 {this.state.count}개</h3>
                 </div>
                 <div className="sh_content">
-                  <dl className="sh_lst2">
-                    <dt>이메일</dt>
-                    <dd>qwer1234@naver.com</dd>
-                    <dt>전화번호</dt>
-                    <dd>010-9999-8888</dd>
-                  </dl>
+                  {this.getBlood(this.state.myblood)}
                 </div>
-                <p className="btn_area_btm"></p>
               </div>
               <div className="sh_group">
-                거래목록
+                <div className="sh_header">
+                  <h3>거래기록(보내기)</h3>
+                </div>
+                <div className="sh_content">
+                  {this.getSendList(this.state.sendtrade)}
+                </div>
               </div>
             </div>
           </div>
