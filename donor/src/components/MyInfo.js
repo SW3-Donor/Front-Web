@@ -51,8 +51,6 @@ class MyInfo extends Component {
         key = {index + 1}
       />
     ))
-    console.log('1',bloodlist)
-
     return bloodlist;
   }
 
@@ -64,8 +62,6 @@ class MyInfo extends Component {
         key = {index + 1}
       />
     })
-    console.log('2',sendlist)
-
     return sendlist;
   }
 
@@ -77,7 +73,6 @@ class MyInfo extends Component {
         key = {index + 1}
       />
     })
-    console.log('3',receivelist)
     return receivelist;
   }
 
