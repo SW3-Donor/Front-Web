@@ -19,15 +19,14 @@ class MyInfo extends Component {
   componentDidMount(){
     this.myinfoHandler(this.props.data)
     .then(resData => {
-      console.log(resData)
       this.setState({
         count: resData.count,
         email: resData.email,
-        myblood: resData.myblood,
+        myblood: resData.myblood.reverse(),
         name: resData.name,
         phone: resData.phone,
-        receivetrade: resData.receivetrade,
-        sendtrade: resData.sendtrade
+        receivetrade: resData.receivetrade.reverse(),
+        sendtrade: resData.sendtrade.reverse()
       })
     })
   }
@@ -52,6 +51,8 @@ class MyInfo extends Component {
         key = {index + 1}
       />
     ))
+    console.log('1',bloodlist)
+
     return bloodlist;
   }
 
@@ -63,18 +64,21 @@ class MyInfo extends Component {
         key = {index + 1}
       />
     })
+    console.log('2',sendlist)
+
     return sendlist;
   }
 
   getReceiveList = (items) => {
-    const sendlist = items.map((item, index) => {
+    const receivelist = items.map((item, index) => {
       return <ReceiveList
         sender = {item.sender}
         date = {item.createdAt}
         key = {index + 1}
       />
     })
-    return sendlist;
+    console.log('3',receivelist)
+    return receivelist;
   }
 
   render() {
