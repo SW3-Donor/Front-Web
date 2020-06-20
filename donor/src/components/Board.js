@@ -14,7 +14,7 @@ class Board extends Component {
     this.boardHandler(this.props.data)
     .then(resData => {
       this.setState({
-        data: resData.posts
+        data: resData.posts.reverse()
       })
     })
   }
@@ -32,11 +32,11 @@ class Board extends Component {
   };
 
   getBoardList = (items) => {
-    console.log('아이템',items)
     const boardList = items.map((item, index) => (
       <BoardList 
         title = {item.title}
         count = {item.count}
+        num = {index + 1}
         key = {index + 1}
       />
     ))
@@ -54,6 +54,7 @@ class Board extends Component {
           <span> / </span>
           <span>병원</span>
         </div>
+        <Link to='/board/write'>등록</Link>
         <table border="1">
           <tbody>
             <tr align='center'>
@@ -67,7 +68,6 @@ class Board extends Component {
           </tbody>
         </table>
         <br></br>
-        <Link to='/board/write'>등록</Link>
       </div>
     );
   }

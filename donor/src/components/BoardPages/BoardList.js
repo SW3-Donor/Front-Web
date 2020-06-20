@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-function BoardList({title, count, key}){
-  return(
-    <tr>
-      <td>{key}</td>
-      <td>{title}</td>
-      <td>{count}</td>
-      <td>나다</td>
-      <td>작성일</td>
+class BoardList extends Component {
+  render(){
+    return(
+      <tr>
+        <td>{this.props.num}</td>
+        <td>{this.props.title}</td>
+        <td>{this.props.count}</td>
+        <td>나다</td>
+        <td>작성일</td>
     </tr>
-  )
+    );
+  }
 }
+
 
 export default BoardList;
