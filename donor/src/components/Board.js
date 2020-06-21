@@ -41,7 +41,9 @@ class Board extends Component {
       <BoardList 
         id = {item._id}
         title = {item.title}
+        received = {item.received}
         count = {item.count}
+        name = {item.name}
         num = {index + 1}
         key = {index + 1}
       />
