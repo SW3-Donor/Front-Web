@@ -16,7 +16,7 @@ class Join extends Component {
     else if (!e.target.pw1.value.trim()){
       alert('비밀번호를 입력하시오');
     }
-    else if (!e.target.pw2.value.trim()){
+    else if (e.target.pw2.value.trim() !== e.target.pw1.value.trim()){
       alert('비밀번호가 일치하지 않습니다');
     }
     else {

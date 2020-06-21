@@ -9,6 +9,7 @@ import Topbar from "./components/Topbar";
 import MyInfo from "./components/MyInfo";
 import Board from "./components/Board";
 import Trade from "./components/Trade";
+import BoardItem from "./components/BoardPages/BoardItem"
 import "./App.css";
 import BoardWrite from "./components/BoardPages/BoardWrite";
 
@@ -27,20 +28,22 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const token = localStorage.getItem("token");
     const expiryDate = localStorage.getItem("expiryDate");
 
-    if (!token || !expiryDate) {
+    if (!expiryDate) {
       return;
     }
     if (new Date(expiryDate) <= new Date()) {
-    this.logoutHandler();
+      this.logoutHandler();
       return;
     }
 
-    const remainingMilliseconds =
-      new Date(expiryDate).getTime() - new Date().getTime();
+    const remainingMilliseconds = new Date(expiryDate).getTime() - new Date().getTime();
     this.setAutoLogout(remainingMilliseconds);
+  }
+
+  componentWillMount(){
+    const token = localStorage.getItem("token");
     this.setState({ token: token });
   }
 
@@ -190,7 +193,6 @@ class App extends Component {
   // 2차 비밀번호 생성
   pwHandler = (event, authData) => {
     event.persist();
-    console.log('2차비번',authData.password)
     this.setState({ authLoading: true });
     fetch(`${this.state.url}/auth/password`, {
       method: "post",
@@ -200,13 +202,14 @@ class App extends Component {
       },
       body: JSON.stringify({
         secondpassword: authData.password,
+        userId: authData.userId
       }),
     })
       .then((res) => {
         return res.json();
       })
       .then((resData) => {
-        console.log(resData);
+        console.log('?????',resData);
         alert(resData.message);
         this.setState({ isAuth: false, authLoading: false });
       })
@@ -273,7 +276,6 @@ class App extends Component {
         console.log(resData)
         this.setState({ success: true });
         window.location.reload();
-
       })
   };
 
@@ -297,9 +299,17 @@ class App extends Component {
           </Route>
 
           <Route exact path="/join">
-            {this.state.token ? <SecondPw secondPassword={this.pwHandler} />
+            {this.state.token || this.state.userId ? <SecondPw secondPassword={this.pwHandler} userId={this.state.userId} />
             : <Join onSignup={this.signupHandler} /> }
           </Route>
+
+          <Route exact path="/blood/register"
+            render={() => <Blood onBlood={this.bloodHandler} token={this.state.token}/>}
+          />
+
+          <Route exact path="/blood/trade"
+            render={() => <Trade tradeBlood={this.tradeHandler} token={this.state.token}/>}
+          />
 
           <Route exact path="/board"
             render={() => <Board data={{token: this.state.token, url:this.state.url}}/>}
@@ -319,13 +329,11 @@ class App extends Component {
             }}
           />
 
-          <Route exact path="/blood/register"
-            render={() => <Blood onBlood={this.bloodHandler} token={this.state.token}/>}
-          />
+          <Route exact path="/board/list/:id"
+            render={({match}) => <BoardItem data={{token: this.state.token, url:this.state.url}} match={match}/>}
 
-          <Route exact path="/blood/trade"
-            render={() => <Trade tradeBlood={this.tradeHandler} token={this.state.token}/>}
           />
+          
         </Router>
       </div>
     );

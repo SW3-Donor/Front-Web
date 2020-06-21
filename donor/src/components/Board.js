@@ -10,9 +10,14 @@ class Board extends Component {
     }
   }
 
+  componentWillUnmount(){
+    console.log("componentWillUnmount");
+}
+
   componentDidMount(){
     this.boardHandler(this.props.data)
     .then(resData => {
+      console.log(resData)
       this.setState({
         data: resData.posts.reverse()
       })
@@ -34,6 +39,7 @@ class Board extends Component {
   getBoardList = (items) => {
     const boardList = items.map((item, index) => (
       <BoardList 
+        id = {item._id}
         title = {item.title}
         count = {item.count}
         num = {index + 1}

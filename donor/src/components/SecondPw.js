@@ -11,7 +11,7 @@ class SecondPw extends Component {
       alert('비밀번호가 일치하지 않습니다');
     }
     else {
-      this.props.secondPassword(e, { password: e.target.pw1.value });
+      this.props.secondPassword(e, { password: e.target.pw1.value, userId: this.props.userId });
     }
   }
 
