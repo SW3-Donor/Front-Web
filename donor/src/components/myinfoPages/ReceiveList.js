@@ -3,10 +3,10 @@ import Moment from 'react-moment';
 
 function ReceiveList({date, sender}){
   return(
-    <div>
-      <div><Moment format="YYYY-MM-DD">{date}</Moment></div>
-      <div>{sender}</div>
-  </div>
+    <div className='sh_lst'>
+        <div className='sh_lst_items lst_items'><Moment format="YY-MM-DD">{date}</Moment></div>
+        <div className='sh_lst_items lst_item'>{sender}</div>
+    </div>
   );
 }
 

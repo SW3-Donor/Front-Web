@@ -97,12 +97,6 @@ img {
   max-width: 954px;
   margin: 0 auto;
   margin-top: 50px;
-}
-
-#content {
-  position: relative;
-  line-height: 14px;
-  zoom: 1;
   padding: 16px 12px 94px;
 }
 
@@ -112,9 +106,9 @@ img {
 }
 
 .sh_group {
-  min-height: 185px;
+  min-height: 240px;
   margin: 16px 8px 0;
-  padding: 32px 29px 30px;
+  padding: 20px 50px 20px;
   text-align: left;
   border: 1px solid #dadada;
   border-radius: 15px;
@@ -125,88 +119,53 @@ img {
   position: relative;
 }
 
+h3 {
+  margin-bottom: 0;
+}
+
 .sh_lst {
-  position: relative;
-  min-height: 80px;
-  margin-top: -1px;
-  padding-bottom: 8px;
-}
-
-dl {
-  display: block;
-  margin-block-start: 1em;
   margin-block-end: 1em;
-  margin-inline-start: 20px;
+  margin-inline-start: 30px;
   margin-inline-end: 0px;
+  margin-right: 10px;
 }
 
-.blind {
-  position: absolute;
-  clip: rect(0 0 0 0);
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-}
-
-.sh_lst dt {
+.sh_lst_items {
+  margin-top: 17px;
   font-size: 15px;
-  font-weight: 700;
   float: left;
-  color: #333;
 }
 
-dt {
-  display: block;
-}
-
-.sh_lst .pic_desc {
-  position: absolute;
-  top: 3px;
-  left: 100;
-  width: 80px;
-}
-
-.sh_lst .intro_desc {
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 21px;
-  padding: 15px 0 0 40%;
-  color: #666;
-}
-                
-.nic_tit {
-}
-
-.nic_desc {
-  font-size: 15px;
-  line-height: 21px;
-  margin-top: 8px;
-  letter-spacing: -1px;
-  color: #666;
-}
-
-.sh_lst2 {
-  overflow: hidden;
-  padding-top: 3px;
-}
-
-.sh_lst2 dt {
-  font-size: 15px;
+.lst_items {
+  width: 40%;
   font-weight: 700;
   color: #333;
 }
 
-.sh_lst2 dd {
-  margin-top: 7px;
-  margin-bottom: 1em;
-  font-size: 15px;
-  line-height: 21px;
-  margin-top: 8px;
-  letter-spacing: -1px;
+.lst_item {
+  width: 60%;
   color: #666;
 }
 
+.link_btn {
+  background-color: #fb5555;
+  color: white;
+  border: 1px solid white;
+  border-radius: 8px;
+  padding: 4px 8px;
+  margin-top: 13px;
+}
+
+.modal_btn {
+  background-color: #fb5555;
+  font-size: 15px;
+  color: white;
+  border: 1px solid white;
+  border-radius: 8px;
+  padding: 4px 8px;
+  margin-top: 13px;
+  margin-left: 150px;
+}
 
 /* Board css */
 a {

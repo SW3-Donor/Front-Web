@@ -11,8 +11,10 @@
     "http-proxy-middleware": "^1.0.3",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.26.0",
+    "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-modal": "^3.11.2",
     "react-moment": "^0.9.7",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1"

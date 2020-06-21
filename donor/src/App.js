@@ -12,6 +12,7 @@ import Trade from "./components/Trade";
 import BoardItem from "./components/BoardPages/BoardItem"
 import "./App.css";
 import BoardWrite from "./components/BoardPages/BoardWrite";
+import { relativeTimeThreshold } from "moment";
 
 class App extends Component {
   constructor(){
@@ -22,7 +23,7 @@ class App extends Component {
       userId: null,
       authLoading: false,
       error: null,
-      url: "http://localhost:5000",
+      url: "http://localhost:8080",
       success: false,
     };
   }
@@ -299,8 +300,12 @@ class App extends Component {
           </Route>
 
           <Route exact path="/join">
-            {this.state.token || this.state.userId ? <SecondPw secondPassword={this.pwHandler} userId={this.state.userId} />
+            {this.state.token || this.state.userId ? <Redirect to="/secondpw" />  
             : <Join onSignup={this.signupHandler} /> }
+          </Route>
+
+          <Route exact path="/secondpw">
+            {this.state.token || this.state.userId ? <SecondPw secondPassword={this.pwHandler} userId={this.state.userId} /> : <Login onLogin={this.loginHandler} />}
           </Route>
 
           <Route exact path="/blood/register"
