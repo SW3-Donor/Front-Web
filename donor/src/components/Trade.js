@@ -28,10 +28,10 @@ class Trade extends Component {
       <div>
         <form onSubmit={this.input_check}>
           <div>
-            <input type='email' name='re_email' className='ps_box' placeholder='받는 사람 이메일'></input>
+            <input type='email' name='re_email' className='ps_box' placeholder='받는 사람 이메일' />
           </div>
           <div>
-            <input type='number' name='blood_count' className='ps_box' placeholder='헌혈증 개수'></input>
+            <input type='number' name='blood_count' className='ps_box' placeholder='헌혈증 개수' min='0' />
           </div>
           <div>
             <input type='password' name='pw2' className='ps_box' placeholder='2차 비밀번호를 입력하시오'></input>

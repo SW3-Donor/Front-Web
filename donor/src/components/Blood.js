@@ -26,7 +26,7 @@ class Blood extends Component {
         <div>
           <form onSubmit={this.input_check}>
             <div>
-              <input type='number' name='blood_register' className='ps_box' placeholder='헌혈증 번호'></input>
+              <input type='number' name='blood_register' className='ps_box' placeholder='헌혈증 번호' min='0' />
             </div>
             <div>
               <input type='password' name='pw2' className='ps_box' placeholder='2차비번'></input>

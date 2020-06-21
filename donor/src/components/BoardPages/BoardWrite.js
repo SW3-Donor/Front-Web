@@ -38,7 +38,7 @@ class BoardWrite extends Component {
               </tr>
               <tr>
                 <td>수 량</td>
-                <td><input type='number' name="count" /></td>
+                <td><input type='number' name="count" min='0'/></td>
               </tr>
               <tr>
                 <td>내 용</td>
