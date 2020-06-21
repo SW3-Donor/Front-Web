@@ -4,7 +4,7 @@ import Moment from 'react-moment';
 function BloodList({date, number}) {
   return (
     <div>
-      <div><Moment format="YY-MM-DD">{date}</Moment></div>
+      <div><Moment format="YYYY-MM-DD">{date}</Moment></div>
       <div>{number}</div>
     </div>
   );
