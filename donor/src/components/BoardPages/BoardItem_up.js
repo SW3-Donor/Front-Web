@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 class BoardItem_up extends Component {
   constructor(){
     super()
-    this.state = {}
+    this.state = {title: null, count: null, content: null}
     this.inputForHandler = this.inputForHandler.bind(this);
   }
 
@@ -21,6 +21,10 @@ class BoardItem_up extends Component {
         name: resData.post.name
       })
     })
+  }
+
+  inputForHandler(e){
+    this.setState({[e.target.name]:e.target.value});
   }
 
   boardItemHandler = (data, postId) => {
@@ -55,16 +59,8 @@ class BoardItem_up extends Component {
     }
   }
 
-  inputForHandler(e){
-    this.setState({[e.target.name]:e.target.value});
-  }
-
   updateHandler = (event, data) => {
     event.preventDefault();
-    console.log('2빠따')
-    console.log(this.state)
-    console.log(data.token)
-    console.log(`${data.url}/board/post${this.state.postId}`)
     fetch(`${data.url}/board/post${this.state.postId}`, {
       method: "put",
       headers: {

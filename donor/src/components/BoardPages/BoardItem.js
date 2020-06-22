@@ -60,7 +60,6 @@ class BoardItem extends Component {
       })
   }
 
-
   // 삭제하기
   boardItemDelHandler = (event) => {
     event.preventDefault();
