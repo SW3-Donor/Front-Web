@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 
 class BoardItem extends Component {
   constructor(){
@@ -9,7 +10,6 @@ class BoardItem extends Component {
   componentDidMount(){
     this.boardItemHandler(this.props.data, this.props.match.params.id)
     .then(resData => {
-      console.log('뭦',resData)
       this.setState({
         postId: resData.post._id,
         title: resData.post.title,
@@ -21,8 +21,8 @@ class BoardItem extends Component {
     })
   }
 
-  boardItemHandler = (data, userid) => {
-    return fetch(`${data.url}/board/post${userid}`, {
+  boardItemHandler = (data, postId) => {
+    return fetch(`${data.url}/board/post${postId}`, {
       method: "get",
       headers: {
         Authorization: "Bearer " + data.token,
@@ -32,8 +32,11 @@ class BoardItem extends Component {
       .then(res => res.json())
   }
 
+
+  // 기부하기
   donationHandler = (event) => {
     event.preventDefault();
+
     const token = localStorage.getItem("token");
     if(!token){
       return alert('로그인을 하세요')
@@ -52,9 +55,40 @@ class BoardItem extends Component {
     })
       .then((res) => res.json())
       .then(resData => {
-        alert(resData.message);
+        alert("기부해주셔서 감사합니다.");
         window.location.reload();
       })
+  }
+
+
+  // 삭제하기
+  boardItemDelHandler = (event) => {
+    event.preventDefault();
+
+    const token = localStorage.getItem("token");
+    if(!token){
+      return alert('로그인을 하세요')
+    }
+    fetch(`${this.props.data.url}/board/post${this.state.postId}`, {
+      method: "delete",
+      headers: {
+        Authorization: "Bearer " + token,
+      }
+    })
+      .then((res) => res.json())
+      .then(resData => {
+        this.setState({
+          success: true
+        })
+      })
+  }
+
+  boardUpdate = () => {
+
+  }
+
+  boardRead = () => {
+    return 
   }
 
 
@@ -63,7 +97,7 @@ class BoardItem extends Component {
       <div>
         <form onSubmit={this.donationHandler}>
         <table>
-          <caption>게시판 상세보기</caption>
+          <caption>게시글 상세보기</caption>
           <tbody>
             <tr>
               <td>
@@ -89,8 +123,10 @@ class BoardItem extends Component {
               <td colSpan="2">
                 <div align="center">
                   <input type="submit" value="보내기" />
-                  <input type="button" value="뒤로" />
-                  <input type="button" value="삭제" />
+                  <input type="button" value="수정" />
+                  <Link to="/board"><input type="button" value="뒤로" /></Link>
+                  <input type="button" value="삭제" onClick={this.boardItemDelHandler}/>
+                  {this.state.success ? <Redirect to="/board" /> : false}
                 </div>
               </td>
             </tr>
