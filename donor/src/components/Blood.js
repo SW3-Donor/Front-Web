@@ -22,20 +22,18 @@ class Blood extends Component {
 
   render() {
     return(
-      <div>
-        <div>
-          <form onSubmit={this.input_check}>
-            <div>
-              <input type='number' name='blood_register' className='ps_box' placeholder='헌혈증 번호' min='0' />
-            </div>
-            <div>
-              <input type='password' name='pw2' className='ps_box' placeholder='2차비번'></input>
-            </div>
-            <div>
-              <button type='submit' className='btn btn_type'>등록</button>
-            </div>
-          </form>
-        </div>
+      <div className='content'>
+        <form onSubmit={this.input_check}>
+          <div>
+            <input type='number' name='blood_register' className='ps_box' placeholder='헌혈증 번호' min='0' />
+          </div>
+          <div>
+            <input type='password' name='pw2' className='ps_box' placeholder='2차비번'></input>
+          </div>
+          <div>
+            <button type='submit' className='btn_type'>등록</button>
+          </div>
+        </form>
       </div>
     );
   }

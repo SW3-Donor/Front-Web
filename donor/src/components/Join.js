@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class Join extends Component {
 
@@ -31,7 +32,7 @@ class Join extends Component {
 
   render(){
     return(
-      <div>
+      <div className='content'>
         <div>
           <h2>회원가입</h2>
         </div>
@@ -55,10 +56,15 @@ class Join extends Component {
               <input type='password' name='pw2' className='ps_box' placeholder='비밀번호 확인'></input>
             </div>   
             <div>
-              <button type='submit' className='btn btn_type'>회원가입</button>
+              <button type='submit' className='btn_type'>회원가입</button>
             </div>
           </div>
         </form>
+        <div className='btnsub'>
+            <Link to='/login'>
+              <button className="btn_sub">로그인</button>
+            </Link>
+          </div>
       </div>
     );
   }

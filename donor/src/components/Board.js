@@ -75,6 +75,7 @@ class Board extends Component {
             {this.getBoardList(this.state.data)}
           </tbody>
         </table>
+        <div className="up_btn">위로가기</div>
         <br></br>
       </div>
     );

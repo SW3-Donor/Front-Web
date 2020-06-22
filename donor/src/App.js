@@ -336,7 +336,6 @@ class App extends Component {
 
           <Route exact path="/board/list/:id"
             render={({match}) => <BoardItem data={{token: this.state.token, url:this.state.url}} match={match}/>}
-
           />
           
         </Router>

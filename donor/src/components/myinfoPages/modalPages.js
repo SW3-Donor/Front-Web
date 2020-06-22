@@ -14,7 +14,7 @@ const ModalPages = ({ isOpen, close, title, content, handler }) => {
             {handler(content)}
           </div>
           <div className="button-wrap">
-            <button onClick={close}>Confirm</button>
+            <button onClick={close}>확인 </button>
           </div>
         </div>
       </React.Fragment>

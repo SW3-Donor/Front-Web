@@ -25,7 +25,7 @@ class Trade extends Component {
   }
   render(){
     return(
-      <div>
+      <div className='content'>
         <form onSubmit={this.input_check}>
           <div>
             <input type='email' name='re_email' className='ps_box' placeholder='받는 사람 이메일' />
@@ -37,7 +37,7 @@ class Trade extends Component {
             <input type='password' name='pw2' className='ps_box' placeholder='2차 비밀번호를 입력하시오'></input>
           </div>
           <div>
-            <button type='submit' className='btn btn_type'>보내기</button>
+            <button type='submit' className='btn_type'>보내기</button>
           </div>
         </form>
       </div>

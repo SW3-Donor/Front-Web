@@ -21,7 +21,7 @@ class Login extends Component {
 
   render(){
     return(
-      <div>
+      <div className='content content_login'>
           <h2>로그인</h2>
         <div>
           <form onSubmit={this.input_check}>
@@ -34,12 +34,12 @@ class Login extends Component {
               </div>
             </div>
             <div>
-              <button type='submit' className='btn btn_type'>로그인</button>
+              <button type='submit' className='btn_type'>로그인</button>
             </div>
           </form>
-          <div>
-            <Link to='Join'>
-              <button className="btn">회원가입</button>
+          <div className='btnsub'>
+            <Link to='/Join'>
+              <button className="btn_sub">회원가입</button>
             </Link>
           </div>
         </div>

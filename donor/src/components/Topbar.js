@@ -6,10 +6,10 @@ class Topbar extends Component {
     return(
       <div>
         <div className="group">
-          <div className="group group-title">
-            <h1>DONOR</h1>
+          <div className="group-title">
+            <div className="logo">DONOR</div>
           </div>
-          <div className="group group-nav">
+          <div className="group-nav">
             <ul>
               <li>
                 {/* <Link to="/">Home</Link> */}
