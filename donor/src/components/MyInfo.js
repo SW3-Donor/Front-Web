@@ -174,9 +174,11 @@ class MyInfo extends Component {
               <div className="sh_header">
                 <h3>헌혈증 {this.state.count}개</h3>
               </div>
-              {this.getBlood(this.state.myblood)}
+              <div className="sh_content">
+                {this.getBlood(this.state.myblood)}
+              </div>
+              <button name='헌혈증'className="modal_btn" onClick={this.openModal} value="헌혈증">+</button>
             </div>
-            <button name='헌혈증'className="modal_btn" onClick={this.openModal} value="헌혈증">+</button>
             <div className="sh_group">
               <div className="sh_header">
                 <h3>거래기록(보내기)</h3>
