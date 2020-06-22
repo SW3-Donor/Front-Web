@@ -25,7 +25,10 @@ class Trade extends Component {
   }
   render(){
     return(
-      <div className='content'>
+      <div className='contents'>
+        <br />
+        <div className='blood_title'>헌혈증 보내기</div>
+        <br />
         <form onSubmit={this.input_check}>
           <div>
             <input type='email' name='re_email' className='ps_box' placeholder='받는 사람 이메일' />

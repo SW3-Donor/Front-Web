@@ -32,7 +32,7 @@ class Join extends Component {
 
   render(){
     return(
-      <div className='content'>
+      <div className='contents'>
         <div>
           <h2>회원가입</h2>
         </div>

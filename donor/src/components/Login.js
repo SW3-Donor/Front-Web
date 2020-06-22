@@ -21,7 +21,7 @@ class Login extends Component {
 
   render(){
     return(
-      <div className='content content_login'>
+      <div className='contents content_login'>
           <h2>로그인</h2>
         <div>
           <form onSubmit={this.input_check}>

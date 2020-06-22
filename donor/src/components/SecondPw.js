@@ -17,8 +17,10 @@ class SecondPw extends Component {
 
   render(){
     return(
-      <div>
-        <h2>2차 비밀번호</h2>
+      <div className="contents">
+        <br />
+        <div className='blood_title'>2차 비밀번호</div>
+        <br />
         <form
           onSubmit={this.input_check}>
           <div>
@@ -29,7 +31,7 @@ class SecondPw extends Component {
               <input type='password' name='pw2' className='ps_box' placeholder='2차 비밀번호 확인'></input>
             </div>   
             <div>
-              <button type='submit' className='btn btn_type'>2차 비밀번호 설정</button>
+              <button type='submit' className='btn_type'>2차 비밀번호 설정</button>
             </div>
           </div>
         </form>

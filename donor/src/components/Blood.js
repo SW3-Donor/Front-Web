@@ -22,7 +22,10 @@ class Blood extends Component {
 
   render() {
     return(
-      <div className='content'>
+      <div className='contents'>
+        <br />
+        <div className='blood_title'>헌혈증 등록</div>
+        <br />
         <form onSubmit={this.input_check}>
           <div>
             <input type='number' name='blood_register' className='ps_box' placeholder='헌혈증 번호' min='0' />
