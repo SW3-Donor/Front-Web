@@ -1,22 +1,7 @@
 import React from 'react';
-import ReceiveList from './ReceiveList'
 import './Modal.scss';
 
-const Modal = ({ isOpen, close, title, content }) => {
-
-  const getReceiveList = (items) => {
-    const receivelist = items.map((item, index) => {
-      // if(index >= 8){
-      //   return true
-      // }
-      return <ReceiveList
-        sender = {item.sender}
-        date = {item.createdAt}
-        key = {index + 1}
-      />
-    })
-    return receivelist;
-  }
+const ModalPages = ({ isOpen, close, title, content, handler }) => {
   return (
     <React.Fragment>
     {
@@ -26,7 +11,7 @@ const Modal = ({ isOpen, close, title, content }) => {
         <div className="Modal">
           <p className="title">{title}</p>
           <div className="content">
-            {getReceiveList(content)}
+            {handler(content)}
           </div>
           <div className="button-wrap">
             <button onClick={close}>Confirm</button>
@@ -39,4 +24,5 @@ const Modal = ({ isOpen, close, title, content }) => {
     </React.Fragment>
   )
 }
-export default Modal;
+
+export default ModalPages;

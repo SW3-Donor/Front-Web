@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Modal from '../components/myinfoPages/modalPages';
+import ModalPages from '../components/myinfoPages/modalPages';
 import BloodList from './myinfoPages/BloodList';
 import SendList from './myinfoPages/SendList';
 import ReceiveList from './myinfoPages/ReceiveList';
@@ -17,6 +17,7 @@ class MyInfo extends Component {
       receivetrade: [],
       sendtrade: [],
       isModalOpen: false,
+      content: []
     }
   }
   componentDidMount(){
@@ -32,6 +33,7 @@ class MyInfo extends Component {
         sendtrade: resData.sendtrade.reverse()
       })
     })
+
     // Modal.setAppElement('body');
   }
 
@@ -71,25 +73,43 @@ class MyInfo extends Component {
 
   getReceiveList = (items) => {
     const receivelist = items.map((item, index) => {
-      if(index>=4){
-        return true
-      }
       return <ReceiveList
         sender = {item.sender}
         date = {item.createdAt}
         key = {index + 1}
       />
     })
-    console.log(receivelist)
     return receivelist;
   }
 
   // modal
   openModal = (event) => {
     event.preventDefault();
+    let item = [];
+    let itemfunction = null;
+    // eslint-disable-next-line default-case
+    switch(event.target.value) {
+      case '받기':
+        item = this.state.receivetrade
+        itemfunction = this.getReceiveList
+        break
+      case '보내기':
+        item = this.state.sendtrade
+        itemfunction = this.getSendList
+        break
+      case '헌혈증':
+        item = this.state.myblood
+        itemfunction = this.getBlood
+        break
+    }
+
+    console.log(itemfunction)
+
     this.setState({
       isModalOpen: true, 
       modalTitle: event.target.name,
+      content: item,
+      handler: itemfunction
     })
   }
 
@@ -97,7 +117,10 @@ class MyInfo extends Component {
     this.setState({ isModalOpen: false })
   }
 
+
+
   render() {
+
     return(
       <div>
         <div id="container">
@@ -130,16 +153,20 @@ class MyInfo extends Component {
                 <h3>거래기록(받기)</h3>
               </div>
               <div className="sh_content">
-                {console.log(this.state.receivetrade)}
                 {this.getReceiveList(this.state.receivetrade)}
               </div>
-              <button name='거래기록(받기)'className="modal_btn" onClick={this.openModal}>+</button>
-              <Modal 
+              <button name='거래기록(받기)'className="modal_btn" onClick={this.openModal} value="받기">+</button>
+
+
+              <ModalPages 
                 isOpen={this.state.isModalOpen} 
                 close={this.closeModal}
                 title={this.state.modalTitle}
-                content={this.state.receivetrade}
+                content={this.state.content}
+                handler={this.state.handler}
               />
+
+
             </div>
           </div>
           <div className="column">
@@ -149,6 +176,7 @@ class MyInfo extends Component {
               </div>
               {this.getBlood(this.state.myblood)}
             </div>
+            <button name='헌혈증'className="modal_btn" onClick={this.openModal} value="헌혈증">+</button>
             <div className="sh_group">
               <div className="sh_header">
                 <h3>거래기록(보내기)</h3>
@@ -156,6 +184,7 @@ class MyInfo extends Component {
               <div className="sh_content">
                 {this.getSendList(this.state.sendtrade)}
               </div>
+              <button name='거래기록(보내기)'className="modal_btn" onClick={this.openModal} value="보내기">+</button>
             </div>
           </div>
         </div>
