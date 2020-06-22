@@ -83,15 +83,6 @@ class BoardItem extends Component {
       })
   }
 
-  boardUpdate = () => {
-
-  }
-
-  boardRead = () => {
-    return 
-  }
-
-
   render(){
     return(
       <div>
@@ -101,10 +92,10 @@ class BoardItem extends Component {
           <tbody>
             <tr>
               <td>
-                <input type='number' name='receive' min='0' />
+                <input type='number' name='receive' min='0' placeholder="헌혈증 개수" />
               </td>
               <td>
-                <input type='password' name='pw' />
+                <input type='password' name='pw' placeholder="2차 비밀번호" />
               </td>
             </tr>
             <tr>
@@ -123,7 +114,7 @@ class BoardItem extends Component {
               <td colSpan="2">
                 <div align="center">
                   <input type="submit" value="보내기" />
-                  <input type="button" value="수정" />
+                  <Link to={`/board/update/${this.state.postId}`}><input type="button" value="수정"/></Link>
                   <Link to="/board"><input type="button" value="뒤로" /></Link>
                   <input type="button" value="삭제" onClick={this.boardItemDelHandler}/>
                   {this.state.success ? <Redirect to="/board" /> : false}

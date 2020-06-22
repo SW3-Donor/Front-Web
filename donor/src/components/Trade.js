@@ -37,7 +37,7 @@ class Trade extends Component {
             <input type='number' name='blood_count' className='ps_box' placeholder='헌혈증 개수' min='0' />
           </div>
           <div>
-            <input type='password' name='pw2' className='ps_box' placeholder='2차 비밀번호를 입력하시오'></input>
+            <input type='password' name='pw2' className='ps_box' placeholder='2차 비밀번호'></input>
           </div>
           <div>
             <button type='submit' className='btn_type'>보내기</button>

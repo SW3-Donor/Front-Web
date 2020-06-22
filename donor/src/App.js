@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Route, BrowserRouter as Router, Redirect } from "react-router-dom";
+import "./App.css";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Join from "./components/Join";
@@ -10,8 +11,8 @@ import MyInfo from "./components/MyInfo";
 import Board from "./components/Board";
 import Trade from "./components/Trade";
 import BoardItem from "./components/BoardPages/BoardItem"
-import "./App.css";
 import BoardWrite from "./components/BoardPages/BoardWrite";
+import BoardItem_up from "./components/BoardPages/BoardItem_up";
 
 class App extends Component {
   constructor(){
@@ -339,9 +340,9 @@ class App extends Component {
             render={({match}) => <BoardItem data={{token: this.state.token, url:this.state.url}} match={match}/>}
           />
 
-          {/* <Route exact path='/board/list/update'
-            render={()=>{}}
-          /> */}
+          <Route exact path="/board/update/:id"
+            render={({match}) => <BoardItem_up data={{token: this.state.token, url:this.state.url}} match={match}/>}
+          />
           
         </Router>
       </div>
