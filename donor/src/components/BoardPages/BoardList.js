@@ -9,7 +9,7 @@ class BoardList extends Component {
         <td><Link to={`/board/list/${this.props.id}`}>{this.props.title}</Link></td>
         <td>{this.props.received} / {this.props.count}</td>
         <td>{this.props.name}</td>
-        <td>작성일</td>
+        <td>{new Date(this.props.date).toLocaleDateString()}</td>
     </tr>
     );
   }

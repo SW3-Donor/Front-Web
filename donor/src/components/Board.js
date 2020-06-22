@@ -44,6 +44,7 @@ class Board extends Component {
         received = {item.received}
         count = {item.count}
         name = {item.name}
+        date = {item.updatedAt}
         num = {index + 1}
         key = {index + 1}
       />
@@ -55,7 +56,7 @@ class Board extends Component {
     return(
       <div>
         <div>
-          <h1>게시판</h1>
+          <h1>당신의 참여로 희망을 만들어 주세요</h1>
         </div>
         <div>
           <span>개인</span>
@@ -63,6 +64,7 @@ class Board extends Component {
           <span>병원</span>
         </div>
         <Link to='/board/write'>등록</Link>
+        <button className="up_btn">위로가기</button>
         <table border="1">
           <tbody>
             <tr align='center'>
@@ -75,7 +77,6 @@ class Board extends Component {
             {this.getBoardList(this.state.data)}
           </tbody>
         </table>
-        <div className="up_btn">위로가기</div>
         <br></br>
       </div>
     );

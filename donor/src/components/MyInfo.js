@@ -33,8 +33,6 @@ class MyInfo extends Component {
         sendtrade: resData.sendtrade.reverse()
       })
     })
-
-    // Modal.setAppElement('body');
   }
 
   // 유저 정보 api
@@ -120,7 +118,6 @@ class MyInfo extends Component {
 
 
   render() {
-
     return(
       <div>
         <div id="container">

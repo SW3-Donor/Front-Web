@@ -12,7 +12,6 @@ import Trade from "./components/Trade";
 import BoardItem from "./components/BoardPages/BoardItem"
 import "./App.css";
 import BoardWrite from "./components/BoardPages/BoardWrite";
-import { relativeTimeThreshold } from "moment";
 
 class App extends Component {
   constructor(){
@@ -213,6 +212,8 @@ class App extends Component {
         console.log('?????',resData);
         alert(resData.message);
         this.setState({ isAuth: false, authLoading: false });
+        window.location.reload();
+
       })
       .catch((err) => {
         console.log("error", err);
@@ -300,7 +301,7 @@ class App extends Component {
           </Route>
 
           <Route exact path="/join">
-            {this.state.token || this.state.userId ? <Redirect to="/secondpw" />  
+            {this.state.token || this.state.userId ? <SecondPw secondPassword={this.pwHandler} userId={this.state.userId} />  
             : <Join onSignup={this.signupHandler} /> }
           </Route>
 
@@ -337,6 +338,10 @@ class App extends Component {
           <Route exact path="/board/list/:id"
             render={({match}) => <BoardItem data={{token: this.state.token, url:this.state.url}} match={match}/>}
           />
+
+          {/* <Route exact path='/board/list/update'
+            render={()=>{}}
+          /> */}
           
         </Router>
       </div>

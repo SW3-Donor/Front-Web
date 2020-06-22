@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class BoardWrite extends Component {
 
@@ -30,7 +31,7 @@ class BoardWrite extends Component {
       <div>
         <form onSubmit={this.input_check}>
           <table>
-            <caption>게시판 글쓰기</caption>
+            <caption>게시글 쓰기</caption>
             <tbody>
               <tr>
                 <td>제 목</td>
@@ -48,7 +49,7 @@ class BoardWrite extends Component {
                 <td colSpan="2">
                   <div align="center">
                     <input type="submit" value="등록" />
-                    <input type="button" value="뒤로" />
+                    <Link to="/board"><input type="button" value="뒤로" /></Link>
                   </div>
                 </td>
               </tr>
