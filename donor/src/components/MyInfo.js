@@ -101,8 +101,6 @@ class MyInfo extends Component {
         break
     }
 
-    console.log(itemfunction)
-
     this.setState({
       isModalOpen: true, 
       modalTitle: event.target.name,
@@ -114,8 +112,6 @@ class MyInfo extends Component {
   closeModal = () => {
     this.setState({ isModalOpen: false })
   }
-
-
 
   render() {
     return(
@@ -150,20 +146,9 @@ class MyInfo extends Component {
                 <h3>거래기록(받기)</h3>
               </div>
               <div className="sh_content">
-                {this.getReceiveList(this.state.receivetrade)}
+                {this.getReceiveList(this.state.receivetrade, 5)}
               </div>
               <button name='거래기록(받기)'className="modal_btn" onClick={this.openModal} value="받기">+</button>
-
-
-              <ModalPages 
-                isOpen={this.state.isModalOpen} 
-                close={this.closeModal}
-                title={this.state.modalTitle}
-                content={this.state.content}
-                handler={this.state.handler}
-              />
-
-
             </div>
           </div>
           <div className="column">
@@ -186,6 +171,13 @@ class MyInfo extends Component {
               <button name='거래기록(보내기)'className="modal_btn" onClick={this.openModal} value="보내기">+</button>
             </div>
           </div>
+          <ModalPages 
+            isOpen={this.state.isModalOpen} 
+            close={this.closeModal}
+            title={this.state.modalTitle}
+            content={this.state.content}
+            handler={this.state.handler}
+          />
         </div>
       </div>
     );
