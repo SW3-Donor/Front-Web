@@ -154,7 +154,7 @@ img {
 
 .column {
   float: left;
-  width: 50%;
+  width: 475px;
 }
 
 .sh_group {
@@ -192,6 +192,7 @@ h3 {
 
 .lst_item {
   width: 150px;
+  height: 20px;
   color: #666;
 }
 
