@@ -141,8 +141,6 @@ class BoardItem extends Component {
             </div> :
             <div className="btn_s">
               <Link to="/board"><input type="button" className="up_btn view_btn" value="뒤로" /></Link>
-              <input type="button" value="삭제" className="up_btn view_btn" onClick={this.boardItemDelHandler}/>
-              {this.state.success ? <Redirect to="/board" /> : false}
             </div>
           }
         </form>

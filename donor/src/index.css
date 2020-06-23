@@ -324,6 +324,7 @@ th, td {
   margin: 0 auto;  
   width: 300px;
   margin-top: 10px;
+  text-align: center;
 }
 
 /* board write */
