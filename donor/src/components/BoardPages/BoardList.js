@@ -5,11 +5,11 @@ class BoardList extends Component {
   render(){
     return(
       <tr>
-        <td>{this.props.num}</td>
+        <td align='center'>{this.props.num}</td>
         <td><Link to={`/board/list/${this.props.id}`}>{this.props.title}</Link></td>
         <td>{this.props.received} / {this.props.count}</td>
-        <td>{this.props.name}</td>
-        <td>{new Date(this.props.date).toLocaleDateString()}</td>
+        <td align='center'>{this.props.name}</td>
+        <td align='center'>{new Date(this.props.date).toLocaleDateString()}</td>
     </tr>
     );
   }

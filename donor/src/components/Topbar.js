@@ -12,14 +12,13 @@ class Topbar extends Component {
           <div className="group-nav">
             <ul>
               <li>
-                {/* <Link to="/">Home</Link> */}
                 <a href="/">Home</a>
               </li>
               <li>
-                <Link to="/blood/trade">헌혈증 보내기</Link>
+                <Link to="/board">게시판</Link>
               </li>
               <li>
-                <Link to="/board">게시판</Link>
+                <Link to="/blood/trade">헌혈증 보내기</Link>
               </li>
               <li>
                 <Link to="/blood/register">헌혈증 등록</Link>

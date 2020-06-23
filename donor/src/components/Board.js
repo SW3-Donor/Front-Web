@@ -53,26 +53,27 @@ class Board extends Component {
 
   render() {
     return(
-      <div>
-        <div>
+      <div className="board_contents">
+        <div className="board_title">
           <h1>당신의 참여로 희망을 만들어 주세요</h1>
         </div>
-        <div>
-          <span>개인</span>
-          <span> / </span>
-          <span>병원</span>
+        <div className="board_btn">
+          <div className="board_upload">
+            <Link to='/board/write'>글쓰기</Link>
+          </div>
+          <div><button className="up_btn">위로가기</button></div>
         </div>
-        <Link to='/board/write'>등록</Link>
-        <button className="up_btn">위로가기</button>
-        <table border="1">
-          <tbody>
-            <tr align='center'>
-              <td width="100">번호</td>
+        <table className='table'>
+          <thead>
+            <tr align='center' className="tabel_title">
+              <td width="70">번호</td>
               <td width="300">제목</td>
               <td width="100">수량</td>
-              <td width="100">작성자</td>
-              <td width="100">작성일</td>
+              <td width="120">작성자</td>
+              <td width="110">작성일</td>
             </tr>
+          </thead>  
+          <tbody>
             {this.getBoardList(this.state.data)}
           </tbody>
         </table>

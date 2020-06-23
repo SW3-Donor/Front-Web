@@ -231,14 +231,108 @@ h3 {
 
 
 /* Board css */
-.up_btn {
+.board_contents {
+  margin: 0 auto;
+  width: 1000px;
+}
+
+.board_title {
+  width: 600px;
+  margin: 0 auto;
+}
+
+.board_contents a {
+  text-decoration: none;
+  color: black;
+}
+
+.board_btn {
+  float: right;
+  padding: 21px 0 17px;
   top: 50px;
   right: 20px;
-  float: right;
   position: sticky;
 }
 
-a {
-  text-decoration: none;
-  color: black;
+
+.board_upload {
+  font-size: 14px;
+  text-align: center;
+  background-color: #fb5555;
+  border: 0px;
+  border-radius: 3px; 
+  color: white;
+  padding: 8px 14px;
+
+}
+
+.board_upload a {
+  color: white;
+}
+
+.up_btn {
+  margin-top: 10px;
+  cursor: pointer;
+  border: none;
+  font-size: 14px;
+  color: white;
+  background-color: #fb5555;
+  border: 0px;
+  border-radius: 3px; 
+  padding: 8px 14px;
+}
+.tabel_title {
+  background-color: rgb(241, 241, 241);
+}
+
+.table {
+  margin: 0 auto;
+  margin-top: 50px;
+  width: 80%;
+  border-top: 1px solid #444444;
+  border-collapse: collapse;
+}
+
+th, td {
+  border-bottom: 1px solid #444444;
+  padding: 18px;
+}
+
+/* board  View Details */
+
+.view_table {
+  border-top: none;
+  width: 60%;
+}
+
+.view_btn {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.input_box {
+  margin: 10px auto;
+  height: 40px;
+  border: solid 1px #dadada;
+  padding: 10px 14px 10px 14px;
+  background: #fff;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin-left: 10px;
+}
+
+.view_send {
+  margin: 0 auto;
+  margin-top: 30px;
+  width: 530px;
+}
+
+.send_btn {
+  margin-left: 30px
+}
+
+.btn_s {
+  margin: 0 auto;  
+  width: 300px;
+  margin-top: 10px;
 }
