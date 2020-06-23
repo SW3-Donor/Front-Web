@@ -6,10 +6,16 @@ class BoardItem extends Component {
     super()
     this.state = {}
   }
+
   // 게시판 id, 토큰, 몇개
   componentDidMount(){
     this.boardItemHandler(this.props.data, this.props.match.params.id)
     .then(resData => {
+      if (resData.post.email === localStorage.getItem('userId')){
+        this.setState({ userConfirm: true })
+      } else {
+        this.setState({ userConfirm: false })
+      }
       this.setState({
         postId: resData.post._id,
         title: resData.post.title,
@@ -53,7 +59,13 @@ class BoardItem extends Component {
         count: event.target.receive.value
       })
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.status === 401) {
+          alert('보낼 수 있는 헌혈증이 없습니다')
+          window.location.reload();
+          throw new Error("Validation failed.");
+        }
+        return res.json()})
       .then(resData => {
         alert("기부해주셔서 감사합니다.");
         window.location.reload();
@@ -83,8 +95,8 @@ class BoardItem extends Component {
           } else {
             alert('게시글이 삭제되었습니다.')
             this.setState({
-            success: true
-          })
+              success: true
+            })
           }
         })
     }
@@ -120,13 +132,19 @@ class BoardItem extends Component {
             <input type='password' name='pw' className="input_box" placeholder="2차 비밀번호" />
             <input type="submit" className="up_btn send_btn" value="보내기" />
           </div>
-
-          <div className="btn_s">
-            <Link to={`/board/update/${this.state.postId}`}><input type="button" className="up_btn btn view_btn" value="수정"/></Link>
-            <Link to="/board"><input type="button" className="up_btn view_btn" value="뒤로" /></Link>
-            <input type="button" value="삭제" className="up_btn view_btn" onClick={this.boardItemDelHandler}/>
-            {this.state.success ? <Redirect to="/board" /> : false}
-          </div>
+          {this.state.userConfirm ? 
+            <div className="btn_s">
+              <Link to={`/board/update/${this.state.postId}`}><input type="button" className="up_btn btn view_btn" value="수정"/></Link>
+              <Link to="/board"><input type="button" className="up_btn view_btn" value="뒤로" /></Link>
+              <input type="button" value="삭제" className="up_btn view_btn" onClick={this.boardItemDelHandler}/>
+              {this.state.success ? <Redirect to="/board" /> : false}
+            </div> :
+            <div className="btn_s">
+              <Link to="/board"><input type="button" className="up_btn view_btn" value="뒤로" /></Link>
+              <input type="button" value="삭제" className="up_btn view_btn" onClick={this.boardItemDelHandler}/>
+              {this.state.success ? <Redirect to="/board" /> : false}
+            </div>
+          }
         </form>
       </div>
     )

@@ -48,10 +48,6 @@ class App extends Component {
     this.setState({ token: token });
   }
 
-  componentDidUpdate(){
-    console.log('componentDidUpdate')
-  }
-
   // 자동 로그아웃
   setAutoLogout = (milliseconds) => {
     setTimeout(() => {
@@ -63,6 +59,7 @@ class App extends Component {
   logoutHandler = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("expiryDate");
+    localStorage.removeItem('userId');
     alert('로그아웃 되었습니다.')
     this.setState({ token: null })
   };
@@ -93,7 +90,6 @@ class App extends Component {
         return res.json();
       })
       .then((resData) => {
-        console.log(resData);
         alert(resData.message);
         this.setState({
           isAuth: true,
@@ -225,7 +221,6 @@ class App extends Component {
         });
       });
   };
-  // 401이 헌혈증 
 
   // 헌혈증 보내기
   tradeHandler = (event, authData) => {
@@ -280,15 +275,10 @@ class App extends Component {
     })
       .then(res => res.json())
       .then(resData => {
-        console.log(resData)
         this.setState({ success: true });
         window.location.reload();
       })
   };
-
-  successHandler = () => {
-    this.setState({ success: true })
-  }
 
   render() {
     
@@ -350,11 +340,7 @@ class App extends Component {
 
           <Route exact path="/board/update/:id"
             render={({match}) => {
-              if(this.state.success){
                 return <BoardItem_up data={{token: this.state.token, url:this.state.url}} match={match}/>
-              } else {
-                return <Redirect to={`board/list/${match.params.id}`}/>
-              }
             }}
           />
           

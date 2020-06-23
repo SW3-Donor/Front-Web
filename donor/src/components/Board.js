@@ -10,14 +10,9 @@ class Board extends Component {
     }
   }
 
-  componentWillUnmount(){
-    console.log("componentWillUnmount");
-}
-
   componentDidMount(){
     this.boardHandler(this.props.data)
     .then(resData => {
-      console.log(resData)
       this.setState({
         data: resData.posts.reverse()
       })

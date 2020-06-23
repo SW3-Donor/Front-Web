@@ -32,6 +32,7 @@ class MyInfo extends Component {
         receivetrade: resData.receivetrade.reverse(),
         sendtrade: resData.sendtrade.reverse()
       })
+      localStorage.setItem("userId", resData.email);
     })
   }
 

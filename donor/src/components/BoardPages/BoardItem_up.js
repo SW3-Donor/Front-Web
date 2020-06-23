@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 class BoardItem_up extends Component {
   constructor(){
@@ -87,6 +87,7 @@ class BoardItem_up extends Component {
   render(){
     return(
       <div className="board_contents">
+        {this.state.success ? <Redirect to={`/board/list/${this.props.match.params.id}`}/> : false}
         <form onSubmit={this.input_check}>
           <table className='table write_table'>
             <caption>게시글 수정</caption>
