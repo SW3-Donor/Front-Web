@@ -225,6 +225,7 @@ class App extends Component {
         });
       });
   };
+  // 401이 헌혈증 
 
   // 헌혈증 보내기
   tradeHandler = (event, authData) => {
@@ -243,6 +244,11 @@ class App extends Component {
       }),
     })
       .then((res) => {
+        if (res.status === 401) {
+          alert('보낼 수 있는 헌혈증이 없습니다')
+          window.location.reload();
+          throw new Error("Validation failed.");
+        }
         return res.json();
       })
       .then((resData) => {
@@ -251,11 +257,9 @@ class App extends Component {
         window.location.reload();
       })
       .catch((err) => {
-        console.log("error", err);
         this.setState({
           error: err,
         });
-        console.log("에러다",this.error);
       });
   };
 
