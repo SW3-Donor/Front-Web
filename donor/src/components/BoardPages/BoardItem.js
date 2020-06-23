@@ -97,19 +97,19 @@ class BoardItem extends Component {
           <table className='table view_table'>
             <tbody>
               <tr>
-                <td>제 목</td>
+                <td className='write_td'>제 목</td>
                 <td>{this.state.title}</td>
               </tr>
               <tr>
-                <td>작성자</td>
+                <td className='write_td'>작성자</td>
                 <td>{this.state.name}</td>
               </tr>
               <tr>
-                <td>수 량</td>
+                <td className='write_td'>수 량</td>
                 <td>{this.state.received} / {this.state.count}</td>
               </tr>
               <tr>
-                <td>내 용</td>
+                <td className='write_td'>내 용</td>
                 <td>{this.state.content}</td>
               </tr>
             </tbody>

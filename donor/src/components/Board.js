@@ -17,6 +17,7 @@ class Board extends Component {
   componentDidMount(){
     this.boardHandler(this.props.data)
     .then(resData => {
+      console.log(resData)
       this.setState({
         data: resData.posts.reverse()
       })
