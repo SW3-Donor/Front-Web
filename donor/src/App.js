@@ -282,6 +282,10 @@ class App extends Component {
       })
   };
 
+  successHandler = () => {
+    this.setState({ success: true })
+  }
+
   render() {
     
     return (
@@ -341,7 +345,13 @@ class App extends Component {
           />
 
           <Route exact path="/board/update/:id"
-            render={({match}) => <BoardItem_up data={{token: this.state.token, url:this.state.url}} match={match}/>}
+            render={({match}) => {
+              if(this.state.success){
+                return <BoardItem_up data={{token: this.state.token, url:this.state.url}} match={match}/>
+              } else {
+                return <Redirect to={`board/list/${match.params.id}`}/>
+              }
+            }}
           />
           
         </Router>

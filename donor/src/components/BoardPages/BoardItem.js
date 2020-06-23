@@ -64,7 +64,7 @@ class BoardItem extends Component {
   boardItemDelHandler = (event) => {
     event.preventDefault();
     const con = window.confirm("정말 삭제하시겠습니까?");
-      if(con) {
+    if(con) {
       const token = localStorage.getItem("token");
       if(!token){
         return alert('로그인을 하세요')
@@ -77,13 +77,16 @@ class BoardItem extends Component {
       })
         .then((res) => res.json())
         .then(resData => {
-          alert('게시글이 삭제되었습니다.')
-          this.setState({
+          console.log(resData)
+          if(resData.message === '일치하지 않습니다 허가 안됨.'){
+            return alert('작성자가 아닙니다.')
+          } else {
+            alert('게시글이 삭제되었습니다.')
+            this.setState({
             success: true
           })
+          }
         })
-    } else {
-
     }
   }
 
@@ -117,7 +120,6 @@ class BoardItem extends Component {
             <input type='password' name='pw' className="input_box" placeholder="2차 비밀번호" />
             <input type="submit" className="up_btn send_btn" value="보내기" />
           </div>
-
 
           <div className="btn_s">
             <Link to={`/board/update/${this.state.postId}`}><input type="button" className="up_btn btn view_btn" value="수정"/></Link>

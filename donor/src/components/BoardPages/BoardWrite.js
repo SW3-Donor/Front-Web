@@ -28,33 +28,31 @@ class BoardWrite extends Component {
 
   render(){
     return(
-      <div>
+      <div className="board_contents">
         <form onSubmit={this.input_check}>
-          <table>
+          <table className='table write_table'>
             <caption>게시글 쓰기</caption>
+            <br />
             <tbody>
               <tr>
-                <td>제 목</td>
-                <td><input type='text' name="title" /></td>
+                <td className='write_td'>제 목</td>
+                <td><input type='text' className="input_box" name="title" placeholder="제목" /></td>
               </tr>
               <tr>
-                <td>수 량</td>
-                <td><input type='number' name="count" min='0'/></td>
+                <td className='write_td'>수 량</td>
+                <td><input type='number' className="input_box" name="count" min='0' placeholder='0'/></td>
               </tr>
               <tr>
-                <td>내 용</td>
-                <td><textarea rows="10" cols="100" name="content" /></td>
-              </tr>
-              <tr>
-                <td colSpan="2">
-                  <div align="center">
-                    <input type="submit" value="등록" />
-                    <Link to="/board"><input type="button" value="뒤로" /></Link>
-                  </div>
-                </td>
+                <td className='write_td'>내 용</td>
+                <td><textarea rows="10" className="textarea_box" cols="100" name="content" placeholder="내용"/></td>
               </tr>
             </tbody>
           </table>
+          
+          <div className="write_btn_s">
+            <input type="submit" className="up_btn view_btn" value="등록" />
+            <Link to="/board"><input type="button" className="up_btn view_btn" value="뒤로" /></Link>
+          </div>
         </form>
       </div>
     );

@@ -51,6 +51,10 @@ class Board extends Component {
     return boardList;
   }
 
+  upScroll = () => {
+    document.documentElement.scrollTop = 0;
+  }
+
   render() {
     return(
       <div className="board_contents">
@@ -61,7 +65,7 @@ class Board extends Component {
           <div className="board_upload">
             <Link to='/board/write'>글쓰기</Link>
           </div>
-          <div><button className="up_btn">위로가기</button></div>
+          <div><button className="up_btn" onClick={this.upScroll}>위로가기</button></div>
         </div>
         <table className='table'>
           <thead>

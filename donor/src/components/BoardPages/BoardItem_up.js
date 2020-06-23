@@ -53,9 +53,7 @@ class BoardItem_up extends Component {
       alert('내용을 입력하시오');
     }
     else {
-      console.log('1빠다')
       this.updateHandler(e, this.props.data)
-
     }
   }
 
@@ -75,43 +73,46 @@ class BoardItem_up extends Component {
     })
       .then(res => res.json())
       .then(resData => {
-        console.log('너냐?',resData)
+        if(resData.message === '게시글 수정 완료 하였습니다.'){
+          alert('게시글 수정이 완료 되었습니다.')
+          this.setState({
+            success: true
+          })
+        } else {
+          alert('게시글 수정 실패')
+        }
       })
   }
 
   render(){
     return(
-      <div>
+      <div className="board_contents">
         <form onSubmit={this.input_check}>
-          <table>
+          <table className='table write_table'>
             <caption>게시글 수정</caption>
             <tbody>
               <tr>
-                <td>제 목</td>
-                <td><input type='text' name="title" value={this.state.title} onChange={this.inputForHandler}/></td>
+                <td className='write_td'>제 목</td>
+                <td><input type='text' className="input_box" name="title" value={this.state.title} onChange={this.inputForHandler}/></td>
               </tr>
               <tr>
-                <td>작성자</td>
+                <td className='write_td'>작성자</td>
                 <td>{this.state.name}</td>
               </tr>
               <tr>
-                <td>수 량</td>
-                <td>{this.state.received} / <input type='number' name="count" min='0' value={this.state.count} onChange={this.inputForHandler}/></td>
+                <td className='write_td'>수 량</td>
+                <td>{this.state.received} / <input type='number' name="count" className="input_box" min='0' value={this.state.count} onChange={this.inputForHandler}/></td>
               </tr>
               <tr>
-                <td>내 용</td>
-                <td><textarea rows="10" cols="100" name="content" value={this.state.content} onChange={this.inputForHandler}/></td>
-              </tr>
-              <tr>
-                <td colSpan="2">
-                  <div align="center">
-                    <input type="submit" value="저장" />
-                    <Link to={`/board/list/${this.state.postId}`}><input type="button" value="뒤로" /></Link>
-                  </div>
-                </td>
+                <td className='write_td'>내 용</td>
+                <td><textarea rows="10" cols="100" name="content" className="textarea_box" value={this.state.content} onChange={this.inputForHandler}/></td>
               </tr>
             </tbody>
           </table>
+          <div className="write_btn_s">
+            <input type="submit" className="up_btn view_btn" value="저장" />
+            <Link to={`/board/list/${this.state.postId}`}><input type="button" className="up_btn view_btn" value="뒤로" /></Link>
+          </div>
         </form>
       </div>
     );

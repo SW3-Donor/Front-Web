@@ -170,7 +170,7 @@ img {
 .sh_group {
   min-height: 240px;
   margin: 16px 8px 0;
-  padding: 20px 50px 20px;
+  padding: 20px 50px 30px;
   text-align: left;
   border: 1px solid #dadada;
   border-radius: 15px;
@@ -294,7 +294,7 @@ h3 {
 }
 
 th, td {
-  border-bottom: 1px solid #444444;
+  border-bottom: 1px solid #a7a7a7;
   padding: 18px;
 }
 
@@ -335,4 +335,45 @@ th, td {
   margin: 0 auto;  
   width: 300px;
   margin-top: 10px;
+}
+
+/* board write */
+
+.write_table {
+  border-top: none;
+  width: 70%;
+}
+
+.write_table .input_box {
+  margin: 10px auto;
+  height: 40px;
+  border: solid 1px #a4a4a4;
+  padding: 10px 14px 10px 14px;
+  background: #fff;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin-left: 10px;
+}
+
+.textarea_box {
+  margin: 10px auto;
+  border: solid 1px #a4a4a4;
+  padding: 10px 14px 10px 14px;
+
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  resize: none;
+  width: 550px;
+  height: 180px;
+}
+
+.write_btn_s {
+  margin: 0 auto;  
+  width: 180px;
+  margin-top: 10px;
+}
+
+.write_td {
+  text-align: center;
+  width: 70px;
 }
