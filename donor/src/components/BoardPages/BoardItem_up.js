@@ -52,6 +52,9 @@ class BoardItem_up extends Component {
     else if (!e.target.content.value.trim()){
       alert('내용을 입력하시오');
     }
+    else if (Number(this.state.received) >= Number(e.target.count.value.trim())){
+      alert('받은 헌혈증 개수보다 많게 입력하십시오')
+    }
     else {
       this.updateHandler(e, this.props.data)
     }
